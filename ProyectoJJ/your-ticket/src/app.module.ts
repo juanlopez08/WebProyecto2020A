@@ -11,6 +11,7 @@ import {RolModule} from "./rol/rol.module";
 import {UsuarioModule} from "./usuario/usuario.module";
 import {UsuarioGuardaCuponModule} from "./usuarioGuardaCupon/usuarioGuardaCupon.module";
 import {UsuarioTieneRolModule} from "./usuarioTieneRol/usuarioTieneRol.module";
+import {UsuarioEntity} from "./usuario/usuario.entity";
 
 
 @Module({
@@ -34,7 +35,9 @@ import {UsuarioTieneRolModule} from "./usuarioTieneRol/usuarioTieneRol.module";
                 username: 'root',
                 password: 'root',
                 database: 'webprojectdb',
-                entities: [],
+                entities: [
+                    UsuarioEntity,
+                ],
                 synchronize: true,  // Actualizar esquema
                 dropSchema: false,  // Eliminar esquema
             }),
