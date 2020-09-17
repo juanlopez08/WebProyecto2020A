@@ -6,9 +6,9 @@ export class UsuarioEntity{
     @PrimaryGeneratedColumn({
         unsigned: true,
         comment: 'Identificador',
-        name: 'id',
+        name: 'id_usuario',
     })
-    id: number;
+    idUsuario: number;
 
     @Column({
         name: 'nombre_usuario',

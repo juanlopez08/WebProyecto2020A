@@ -12,6 +12,9 @@ import {UsuarioModule} from "./usuario/usuario.module";
 import {UsuarioGuardaCuponModule} from "./usuarioGuardaCupon/usuarioGuardaCupon.module";
 import {UsuarioTieneRolModule} from "./usuarioTieneRol/usuarioTieneRol.module";
 import {UsuarioEntity} from "./usuario/usuario.entity";
+import {ArticuloEntity} from "./articulo/articulo.entity";
+import {ArticuloEnCuponEntity} from "./articuloEnCupon/articuloEnCupon.entity";
+import {CuponEntity} from "./cupon/cupon.entity";
 
 
 @Module({
@@ -36,10 +39,13 @@ import {UsuarioEntity} from "./usuario/usuario.entity";
                 password: 'root',
                 database: 'webprojectdb',
                 entities: [
+                    ArticuloEntity,
+                    ArticuloEnCuponEntity,
+                    CuponEntity,
                     UsuarioEntity,
                 ],
                 synchronize: true,  // Actualizar esquema
-                dropSchema: false,  // Eliminar esquema
+                dropSchema: true,  // Eliminar esquema
             }),
     ],
     controllers: [AppController],
