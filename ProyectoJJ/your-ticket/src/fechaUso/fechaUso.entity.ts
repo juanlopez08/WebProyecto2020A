@@ -14,7 +14,8 @@ export class FechaUsoEntity{
 
     @Column({
         name: 'fecha_uso',
-        type: 'date',
+        type: 'varchar',
+        length: 10,
         nullable: true
     })
     fechaUso?: string

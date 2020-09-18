@@ -14,6 +14,14 @@ export class UsuarioEntity{
     idUsuario: number;
 
     @Column({
+        name: 'cedula',
+        type: 'varchar',
+        length: 10,
+        unique: true
+    })
+    cedula: string;
+
+    @Column({
         name: 'nombre_usuario',
         type: 'varchar',
         length: 60,
@@ -43,7 +51,8 @@ export class UsuarioEntity{
 
     @Column({
         name: 'fecha_nacimiento',
-        type: 'date',
+        type: 'varchar',
+        length: 10,
         nullable: true
     })
     fechaNacimiento?: string
