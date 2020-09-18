@@ -11,6 +11,15 @@ import {RolModule} from "./rol/rol.module";
 import {UsuarioModule} from "./usuario/usuario.module";
 import {UsuarioGuardaCuponModule} from "./usuarioGuardaCupon/usuarioGuardaCupon.module";
 import {UsuarioTieneRolModule} from "./usuarioTieneRol/usuarioTieneRol.module";
+import {UsuarioEntity} from "./usuario/usuario.entity";
+import {ArticuloEntity} from "./articulo/articulo.entity";
+import {ArticuloEnCuponEntity} from "./articuloEnCupon/articuloEnCupon.entity";
+import {CuponEntity} from "./cupon/cupon.entity";
+import {EstablecimientoEntity} from "./establecimiento/establecimiento.entity";
+import {FechaUsoEntity} from "./fechaUso/fechaUso.entity";
+import {RolEntity} from "./rol/rol.entity";
+import {UsuarioGuardaCuponEntity} from "./usuarioGuardaCupon/usuarioGuardaCupon.entity";
+import {UsuarioTieneRolEntity} from "./usuarioTieneRol/usuarioTieneRol.entity";
 
 
 @Module({
@@ -34,7 +43,17 @@ import {UsuarioTieneRolModule} from "./usuarioTieneRol/usuarioTieneRol.module";
                 username: 'root',
                 password: 'root',
                 database: 'webprojectdb',
-                entities: [],
+                entities: [
+                     ArticuloEntity,
+                     ArticuloEnCuponEntity,
+                     CuponEntity,
+                     EstablecimientoEntity,
+                     FechaUsoEntity,
+                     RolEntity,
+                     UsuarioEntity,
+                     UsuarioGuardaCuponEntity,
+                     UsuarioTieneRolEntity,
+                ],
                 synchronize: true,  // Actualizar esquema
                 dropSchema: false,  // Eliminar esquema
             }),
@@ -43,4 +62,7 @@ import {UsuarioTieneRolModule} from "./usuarioTieneRol/usuarioTieneRol.module";
     providers: [AppService],
 })
 export class AppModule {
+
+
+
 }

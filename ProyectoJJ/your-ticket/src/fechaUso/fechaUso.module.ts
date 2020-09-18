@@ -1,13 +1,23 @@
 import {Module} from "@nestjs/common";
 import {FechaUsoService} from "./fechaUso.service";
 import {FechaUsoController} from "./fechaUso.controller";
+import {FechaUsoEntity} from "./fechaUso.entity";
+import {TypeOrmModule} from "@nestjs/typeorm";
 
 @Module({
-    controllers:[
+    controllers: [
         FechaUsoController
     ],
-    imports:[],
-    providers:[
+    imports: [
+        TypeOrmModule
+            .forFeature(
+                [
+                    FechaUsoEntity,
+                ],
+                'default'
+            )
+    ],
+    providers: [
         FechaUsoService
     ],
 })
