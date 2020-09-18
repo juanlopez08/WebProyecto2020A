@@ -1,9 +1,8 @@
-import {IsDate, IsDateString, IsNotEmpty} from "class-validator";
+import {IsNotEmpty, IsString} from "class-validator";
 
 export class FechaUsoCreateDto {
 
     @IsNotEmpty()
-    @IsDate()
-    @IsDateString()
+    @IsString()
     fechaUso: string;
 }

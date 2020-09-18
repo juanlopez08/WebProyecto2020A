@@ -10,4 +10,24 @@ export class UsuarioGuardaCuponService {
         private repositorio: Repository<UsuarioGuardaCuponEntity>
     ) {
     }
+
+    crearUno(nuevoUsuarioGuardaCupon: UsuarioGuardaCuponEntity) {
+        return this.repositorio.save(nuevoUsuarioGuardaCupon);
+    }
+
+    buscarTodos(){
+        return this.repositorio.find();
+    }
+
+    buscarUno(id: number) {
+        return this.repositorio.findOne(id);
+    }
+
+    editarUno(usuarioGuardaCuponEditado: UsuarioGuardaCuponEntity) {
+        return this.repositorio.save(usuarioGuardaCuponEditado)
+    }
+
+    eliminarUno(id: number) {
+        return this.repositorio.delete(id);
+    }
 }

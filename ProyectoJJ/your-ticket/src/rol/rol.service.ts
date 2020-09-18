@@ -10,4 +10,24 @@ export class RolService {
         private repositorio: Repository<RolEntity>
     ) {
     }
+
+    crearUno(nuevoRol: RolEntity) {
+        return this.repositorio.save(nuevoRol);
+    }
+
+    buscarTodos(){
+        return this.repositorio.find();
+    }
+
+    buscarUno(id: number) {
+        return this.repositorio.findOne(id);
+    }
+
+    editarUno(rolEditado: RolEntity) {
+        return this.repositorio.save(rolEditado)
+    }
+
+    eliminarUno(id: number) {
+        return this.repositorio.delete(id);
+    }
 }

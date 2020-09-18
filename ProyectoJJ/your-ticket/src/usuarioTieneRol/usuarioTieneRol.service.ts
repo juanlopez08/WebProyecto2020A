@@ -10,4 +10,24 @@ export class UsuarioTieneRolService {
         private repositorio: Repository<UsuarioTieneRolEntity>
     ) {
     }
+
+    crearUno(nuevoUsuarioTieneRol: UsuarioTieneRolEntity) {
+        return this.repositorio.save(nuevoUsuarioTieneRol);
+    }
+
+    buscarTodos(){
+        return this.repositorio.find();
+    }
+
+    buscarUno(id: number) {
+        return this.repositorio.findOne(id);
+    }
+
+    editarUno(usuarioTieneRolEditado: UsuarioTieneRolEntity) {
+        return this.repositorio.save(usuarioTieneRolEditado)
+    }
+
+    eliminarUno(id: number) {
+        return this.repositorio.delete(id);
+    }
 }

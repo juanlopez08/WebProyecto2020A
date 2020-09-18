@@ -10,4 +10,24 @@ export class ArticuloService {
         private repositorio: Repository<ArticuloEntity>
     ) {
     }
+
+    crearUno(nuevoArticulo: ArticuloEntity) {
+        return this.repositorio.save(nuevoArticulo);
+    }
+
+    buscarTodos(){
+        return this.repositorio.find();
+    }
+
+    buscarUno(id: number) {
+        return this.repositorio.findOne(id);
+    }
+
+    editarUno(articuloEditado: ArticuloEntity) {
+        return this.repositorio.save(articuloEditado)
+    }
+
+    eliminarUno(id: number) {
+        return this.repositorio.delete(id);
+    }
 }

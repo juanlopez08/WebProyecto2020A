@@ -10,4 +10,24 @@ export class EstablecimientoService {
         private repositorio: Repository<EstablecimientoEntity>
     ) {
     }
+
+    crearUno(nuevoEstablecimiento: EstablecimientoEntity) {
+        return this.repositorio.save(nuevoEstablecimiento);
+    }
+
+    buscarTodos(){
+        return this.repositorio.find();
+    }
+
+    buscarUno(id: number) {
+        return this.repositorio.findOne(id);
+    }
+
+    editarUno(establecimientoEditado: EstablecimientoEntity) {
+        return this.repositorio.save(establecimientoEditado)
+    }
+
+    eliminarUno(id: number) {
+        return this.repositorio.delete(id);
+    }
 }

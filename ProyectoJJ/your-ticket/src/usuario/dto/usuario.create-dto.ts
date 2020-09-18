@@ -3,6 +3,11 @@ import {IsAlpha, IsAlphanumeric, IsDate, IsDateString, IsEmail, IsNotEmpty, IsSt
 export class UsuarioCreateDto {
 
     @IsNotEmpty()
+    @IsString()
+    @MaxLength(10)
+    cedula: string;
+
+    @IsNotEmpty()
     @IsAlpha()
     @MaxLength(60)
     nombreUsuario: string;
@@ -23,7 +28,6 @@ export class UsuarioCreateDto {
     contrasenaUsuario: string;
 
     @IsNotEmpty()
-    @IsDate()
-    @IsDateString()
-    fechaNacimiento: string;
+    @IsString()
+    fechaNacimiento;
 }
