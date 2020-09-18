@@ -15,6 +15,11 @@ import {UsuarioEntity} from "./usuario/usuario.entity";
 import {ArticuloEntity} from "./articulo/articulo.entity";
 import {ArticuloEnCuponEntity} from "./articuloEnCupon/articuloEnCupon.entity";
 import {CuponEntity} from "./cupon/cupon.entity";
+import {EstablecimientoEntity} from "./establecimiento/establecimiento.entity";
+import {FechaUsoEntity} from "./fechaUso/fechaUso.entity";
+import {RolEntity} from "./rol/rol.entity";
+import {UsuarioGuardaCuponEntity} from "./usuarioGuardaCupon/usuarioGuardaCupon.entity";
+import {UsuarioTieneRolEntity} from "./usuarioTieneRol/usuarioTieneRol.entity";
 
 
 @Module({
@@ -42,10 +47,15 @@ import {CuponEntity} from "./cupon/cupon.entity";
                     ArticuloEntity,
                     ArticuloEnCuponEntity,
                     CuponEntity,
+                    EstablecimientoEntity,
+                    FechaUsoEntity,
+                    RolEntity,
                     UsuarioEntity,
+                    UsuarioGuardaCuponEntity,
+                    UsuarioTieneRolEntity,
                 ],
                 synchronize: true,  // Actualizar esquema
-                dropSchema: true,  // Eliminar esquema
+                dropSchema: false,  // Eliminar esquema
             }),
     ],
     controllers: [AppController],

@@ -10,18 +10,6 @@ export class ArticuloEnCuponEntity {
     })
     idArtEnCup: number;
 
-    // @Column({
-    //     name: 'id_cupon',
-    //     type: 'int',
-    // })
-    // idCupon: number;
-    //
-    // @Column({
-    //     name: 'id_articulo',
-    //     type: 'int',
-    // })
-    // idArticulo: number;
-
     @Column({
         name: 'porcentaje',
         type: "int",
