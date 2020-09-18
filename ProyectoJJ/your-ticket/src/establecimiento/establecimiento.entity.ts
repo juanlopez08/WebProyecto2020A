@@ -1,5 +1,6 @@
 // @ts-ignore
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {CuponEntity} from "../cupon/cupon.entity";
 
 @Entity('establecimiento')
 export class EstablecimientoEntity{
@@ -38,4 +39,12 @@ export class EstablecimientoEntity{
         length: 45,
     })
     direccionEstablecimiento: string;
+
+    // RELACIONES
+
+    @OneToMany(
+        type => CuponEntity, // Entidad con la que nos relacionamos
+        cupon => cupon.establecimiento  // Campo con el que nos relacionamos
+    )
+    cupones: CuponEntity[];
 }

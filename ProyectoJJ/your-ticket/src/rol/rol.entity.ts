@@ -1,5 +1,6 @@
 // @ts-ignore
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {UsuarioTieneRolEntity} from "../usuarioTieneRol/usuarioTieneRol.entity";
 
 @Entity('rol')
 export class RolEntity {
@@ -17,4 +18,12 @@ export class RolEntity {
         length: 45,
     })
     tipoRol: string;
+
+    // RELACIONES
+
+    @OneToMany(
+        type => UsuarioTieneRolEntity,
+        usuarioTieneRol => usuarioTieneRol.rol
+    )
+    usuarioTieneRoles: UsuarioTieneRolEntity[];
 }

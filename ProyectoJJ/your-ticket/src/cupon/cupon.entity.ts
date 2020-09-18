@@ -1,5 +1,8 @@
 // @ts-ignore
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {ArticuloEnCuponEntity} from "../articuloEnCupon/articuloEnCupon.entity";
+import {EstablecimientoEntity} from "../establecimiento/establecimiento.entity";
+import {UsuarioGuardaCuponEntity} from "../usuarioGuardaCupon/usuarioGuardaCupon.entity";
 
 @Entity('cupon')
 export class CuponEntity {
@@ -44,4 +47,26 @@ export class CuponEntity {
         type: 'int',
     })
     cantidadUsos: number;
+
+    // RELACIONES
+
+    @OneToMany(
+        type => ArticuloEnCuponEntity, // Entidad con la que nos relacionamos
+        articuloEnCupon => articuloEnCupon.articulo  // Campo con el que nos relacionamos
+    )
+    articuloEnCupones: ArticuloEnCuponEntity[];
+
+    @OneToMany(
+        type => UsuarioGuardaCuponEntity,
+        establecimiento => establecimiento.cupon
+    )
+    usuarioGuardaCupones: UsuarioGuardaCuponEntity[];
+
+    @ManyToOne(
+        type => EstablecimientoEntity,
+        establecimiento => establecimiento.cupones
+    )
+    establecimiento: EstablecimientoEntity[];
+
+
 }

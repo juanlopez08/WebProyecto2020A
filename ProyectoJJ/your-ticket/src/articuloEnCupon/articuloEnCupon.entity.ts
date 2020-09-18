@@ -1,5 +1,7 @@
 // @ts-ignore
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {ArticuloEntity} from "../articulo/articulo.entity";
+import {CuponEntity} from "../cupon/cupon.entity";
 
 @Entity('articulo_en_cupon')
 export class ArticuloEnCuponEntity {
@@ -26,4 +28,18 @@ export class ArticuloEnCuponEntity {
         nullable: true,
     })
     valor: number;
+
+    // RELACIONES
+
+    @ManyToOne(
+        type => ArticuloEntity,  // Entidad con la que nos relacionamos
+        articulo => articulo.articuloEnCupones  // Campo con el que nos relacionamos
+    )
+    articulo: ArticuloEntity[];
+
+    @ManyToOne(
+        type => CuponEntity,
+        cupon => cupon.articuloEnCupones
+    )
+    cupon: CuponEntity[];
 }

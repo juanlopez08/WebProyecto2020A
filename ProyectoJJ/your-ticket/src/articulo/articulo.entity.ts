@@ -1,5 +1,6 @@
 // @ts-ignore
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {ArticuloEnCuponEntity} from "../articuloEnCupon/articuloEnCupon.entity";
 
 @Entity('articulo')
 export class ArticuloEntity{
@@ -32,4 +33,12 @@ export class ArticuloEntity{
         length: 100
     })
     descripcionArticulo: string;
+
+    // RELACIONES
+
+    @OneToMany(
+        type => ArticuloEnCuponEntity, // Entidad con la que nos relacionamos
+        articuloEnCupon => articuloEnCupon.articulo  // Campo con el que nos relacionamos
+    )
+    articuloEnCupones: ArticuloEnCuponEntity[]
 }

@@ -1,5 +1,7 @@
 // @ts-ignore
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {UsuarioGuardaCuponEntity} from "../usuarioGuardaCupon/usuarioGuardaCupon.entity";
+import {UsuarioTieneRolEntity} from "../usuarioTieneRol/usuarioTieneRol.entity";
 
 @Entity('usuario')
 export class UsuarioEntity{
@@ -45,4 +47,18 @@ export class UsuarioEntity{
         nullable: true
     })
     fechaNacimiento?: string
+
+    // RELACIONES
+
+    @OneToMany(
+        type => UsuarioGuardaCuponEntity,
+        usuarioGuardaCupon => usuarioGuardaCupon.cupon
+    )
+    usuarioGuardaCupones: UsuarioGuardaCuponEntity[];
+
+    @OneToMany(
+        type => UsuarioTieneRolEntity,
+        usuarioTieneRol => usuarioTieneRol.usuario
+    )
+    usuarioTieneRoles: UsuarioTieneRolEntity[];
 }
