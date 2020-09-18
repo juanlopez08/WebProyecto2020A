@@ -1,7 +1,8 @@
+// @ts-ignore
 import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity('cupon')
-export class CuponEntity{
+export class CuponEntity {
 
     @PrimaryGeneratedColumn({
         unsigned: true,
@@ -22,19 +23,19 @@ export class CuponEntity{
         type: 'varchar',
         length: 100,
     })
-    pathCCodigoQRCupon: string;
+    pathCodigoQRCupon: string;
 
     @Column({
         name: 'informacion_cupon',
         type: 'varchar',
         length: 100,
     })
-    informacionnCupon: string;
+    informacionCupon: string;
 
     @Column({
         name: 'estado_cupon',
         type: 'varchar',
-        //enum: ['activo','inactivo'],
+        length: 10,
     })
     estadoCupon: string;
 

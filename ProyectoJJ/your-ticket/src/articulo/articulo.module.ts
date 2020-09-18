@@ -1,8 +1,8 @@
 import {Module} from "@nestjs/common";
 import {ArticuloController} from "./articulo.controller";
 import {ArticuloService} from "./articulo.service";
-import {TypeOrmModule} from "@nestjs/typeorm";
 import {ArticuloEntity} from "./articulo.entity";
+import {TypeOrmModule} from "@nestjs/typeorm";
 
 @Module({
     controllers: [
@@ -12,7 +12,7 @@ import {ArticuloEntity} from "./articulo.entity";
         TypeOrmModule
             .forFeature(
                 [
-                    ArticuloEntity
+                    ArticuloEntity,
                 ],
                 'default'
             )

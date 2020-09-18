@@ -44,15 +44,15 @@ import {UsuarioTieneRolEntity} from "./usuarioTieneRol/usuarioTieneRol.entity";
                 password: 'root',
                 database: 'webprojectdb',
                 entities: [
-                    ArticuloEntity,
-                    ArticuloEnCuponEntity,
-                    CuponEntity,
-                    EstablecimientoEntity,
-                    FechaUsoEntity,
-                    RolEntity,
-                    UsuarioEntity,
-                    UsuarioGuardaCuponEntity,
-                    UsuarioTieneRolEntity,
+                     ArticuloEntity,
+                     ArticuloEnCuponEntity,
+                     CuponEntity,
+                     EstablecimientoEntity,
+                     FechaUsoEntity,
+                     RolEntity,
+                     UsuarioEntity,
+                     UsuarioGuardaCuponEntity,
+                     UsuarioTieneRolEntity,
                 ],
                 synchronize: true,  // Actualizar esquema
                 dropSchema: false,  // Eliminar esquema
@@ -62,4 +62,7 @@ import {UsuarioTieneRolEntity} from "./usuarioTieneRol/usuarioTieneRol.entity";
     providers: [AppService],
 })
 export class AppModule {
+
+
+
 }

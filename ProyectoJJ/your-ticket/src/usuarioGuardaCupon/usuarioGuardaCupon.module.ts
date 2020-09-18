@@ -1,8 +1,8 @@
 import {Module} from "@nestjs/common";
 import {UsuarioGuardaCuponService} from "./usuarioGuardaCupon.service";
 import {UsuarioGuardaCuponController} from "./usuarioGuardaCupon.controller";
-import {TypeOrmModule} from "@nestjs/typeorm";
 import {UsuarioGuardaCuponEntity} from "./usuarioGuardaCupon.entity";
+import {TypeOrmModule} from "@nestjs/typeorm";
 
 @Module({
     controllers: [

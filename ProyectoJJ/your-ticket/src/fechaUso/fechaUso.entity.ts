@@ -1,6 +1,6 @@
 import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
-@Entity('fechaUso')
+@Entity('fecha_uso')
 export class FechaUsoEntity{
 
     @PrimaryGeneratedColumn({

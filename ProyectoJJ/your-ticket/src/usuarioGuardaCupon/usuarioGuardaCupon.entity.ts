@@ -1,6 +1,7 @@
+// @ts-ignore
 import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
-@Entity('usuarioGuardaCupon')
+@Entity('usuario_guarda_cupon')
 export class UsuarioGuardaCuponEntity{
 
     @PrimaryGeneratedColumn({

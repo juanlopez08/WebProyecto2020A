@@ -1,6 +1,7 @@
+// @ts-ignore
 import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
-@Entity('usuarioTieneRol')
+@Entity('usuario_tiene_rol')
 export class UsuarioTieneRolEntity {
 
     @PrimaryGeneratedColumn({
