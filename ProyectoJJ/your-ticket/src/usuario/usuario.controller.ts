@@ -1,4 +1,4 @@
-import {BadRequestException, Body, Controller, Post} from "@nestjs/common";
+import {BadRequestException, Body, Controller, Get, Post, Res} from "@nestjs/common";
 import {UsuarioService} from "./usuario.service";
 import {UsuarioCreateDto} from "./dto/usuario.create-dto";
 import {validate, ValidationError} from "class-validator";
@@ -11,9 +11,10 @@ export class UsuarioController {
     ) {
     }
 
-    @Post()
-    async crearUno(
-        @Body() parametrosCuerpo
+    @Post('crearDesdeVista')
+    async crearDesdeVista(
+        @Body() parametrosCuerpo,
+        @Res() res
     ) {
         const usuarioValido = new UsuarioCreateDto();
         usuarioValido.cedula = parametrosCuerpo.cedula;
@@ -37,5 +38,7 @@ export class UsuarioController {
             });
         }
     }
+
+//    VISTAS
 
 }

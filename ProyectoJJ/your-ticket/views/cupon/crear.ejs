@@ -1,0 +1,89 @@
+<%- include('../compartido/menu/menu-component') %>
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+
+<% let existeImagen = typeof pathImagenCupon !== 'undefined' %>
+<% let existeCodigoQR = typeof pathCodigoQRCupon !== 'undefined' %>
+<% let existeInformacion = typeof informacionCupon !== 'undefined' %>
+<% let existeEstado = typeof estadoCupon != 'undefined' %>
+<% let existeCantidad = typeof cantidadUsos != 'undefined' %>
+<% let existeEstablecimiento = typeof establecimiento != 'undefined' %>
+
+
+<% if(error != undefined) { %>
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Mensaje error: <%= error %>
+        </div>
+    </div>
+<% } %>
+
+<div class="container">
+    <h1>CUPONES</h1>
+</div>
+<form action="/cupon/crearDesdeVista" method="POST">
+    <div class="container">
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="pathImagenID">URL Imagen: </label>
+            <input id="pathImagenID"
+                   type="text"
+                   class="form-control"
+                   placeholder="Path Imagen"
+                   name="pathImagenCupon"
+                   value="<%= existeImagen ? pathImagenCupon : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="pathCodigoQRID">URL Código QR: </label>
+            <input id="pathCodigoQRID"
+                   type="text"
+                   class="form-control"
+                   placeholder="Path Código QR"
+                   name="pathCodigoQRCupon"
+                   value="<%= existeCodigoQR ? pathCodigoQRCupon : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="informacionID">Información: </label>
+            <input id="informacionID"
+                   type="text"
+                   class="form-control"
+                   placeholder="Información"
+                   name="informacionCupon"
+                   value="<%= existeInformacion ? informacionCupon : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="estadoID">Estado: </label>
+            <input id="estadoID"
+                   type="text"
+                   class="form-control"
+                   placeholder="Estado"
+                   name="estadoCupon"
+                   value="<%= existeEstado ? estadoCupon : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="cantidadUsosID">Cantidad de usos: </label>
+            <input id="cantidadUsosID"
+                   type=number
+                   min=1
+                   class="form-control"
+                   placeholder="Cantidad Usos"
+                   name="cantidadUsos"
+                   value="<%= existeCantidad ? cantidadUsos : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="establecimientoID">Establecimiento: </label>
+            <input id="establecimientoID"
+                   type="number"
+                   min=1
+                   class="form-control"
+                   placeholder="Establecimiento"
+                   name="establecimiento"
+                   value="<%= existeEstablecimiento ? establecimiento : '' %>">
+        </div>
+        <button type="submit" class="btn btn-primary">Crear</button>
+        <button type="reset" class="btn btn-secondary">Limpiar Campos</button>
+    </div>
+</form>
+
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>
+
+

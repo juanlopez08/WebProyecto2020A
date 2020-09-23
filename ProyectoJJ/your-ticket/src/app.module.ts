@@ -20,6 +20,7 @@ import {FechaUsoEntity} from "./fechaUso/fechaUso.entity";
 import {RolEntity} from "./rol/rol.entity";
 import {UsuarioGuardaCuponEntity} from "./usuarioGuardaCupon/usuarioGuardaCupon.entity";
 import {UsuarioTieneRolEntity} from "./usuarioTieneRol/usuarioTieneRol.entity";
+import {InicioModule} from "./inicio/inicio.module";
 
 
 @Module({
@@ -29,6 +30,7 @@ import {UsuarioTieneRolEntity} from "./usuarioTieneRol/usuarioTieneRol.entity";
         CuponModule,
         EstablecimientoModule,
         FechaUsoModule,
+        InicioModule,
         RolModule,
         UsuarioModule,
         UsuarioGuardaCuponModule,

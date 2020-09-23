@@ -5,16 +5,16 @@ export class CuponCreateDto {
 
     @IsNotEmpty()
     @IsString()
-    @MaxLength(100)
+    @MaxLength(500)
     pathImagenCupon: string;
 
     @IsNotEmpty()
     @IsString()
-    @MaxLength(100)
+    @MaxLength(500)
     pathCodigoQRCupon: string;
 
     @IsNotEmpty()
-    @IsAlphanumeric()
+    @IsString()
     @MaxLength(100)
     informacionCupon: string;
 

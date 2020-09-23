@@ -17,14 +17,14 @@ export class CuponEntity {
     @Column({
         name: 'path_imagen_cupon',
         type: 'varchar',
-        length: 100,
+        length: 500,
     })
     pathImagenCupon: string;
 
     @Column({
         name: 'path_codigoqr_cupon',
         type: 'varchar',
-        length: 100,
+        length: 500,
     })
     pathCodigoQRCupon: string;
 
