@@ -1,0 +1,53 @@
+<%- include('../compartido/menu/menu-component') %>
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+
+<% if(error != undefined) { %>
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Mensaje: <%= error %>
+        </div>
+    </div>
+<% } %>
+
+<div class="container">
+    <h1>CUPONES</h1>
+    <div class="mb-3">
+        <a href="/cupon/vista/crear">
+            <button type="button" class="btn btn-primary">
+                Crear Cupón
+            </button>
+        </a>
+    </div>
+    <form action="/cupon/principal" method="GET">
+        <div class="input-group mb-3">
+            <label for="buscarID"></label>
+            <input id="buscarID" type="text" class="form-control" placeholder="Buscar Cupón" name="busqueda" >
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="submit">Buscar</button>
+            </div>
+        </div>
+    </form>
+    <div class="mb-3">
+        <div class="row">
+            <% arregloCupones.forEach((cupon) => { %>
+                <div class="col-lg-4">
+                    <div class="card mb-3" style="width: 18rem;">
+                        <img src="<%= cupon.pathImagenCupon %>" class="card-img-top">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <%= cupon.informacionCupon %>
+                            </p>
+                            <a href="/cupon/vista/informacion/<%= cupon.idCupon %>"
+                               class="btn btn-primary">
+                                Abrir
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

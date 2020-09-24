@@ -32,11 +32,11 @@ export class UsuarioGuardaCuponEntity{
         type => CuponEntity,
         cupon => cupon.usuarioGuardaCupones
     )
-    cupon: CuponEntity[];
+    cupon: CuponEntity;
 
     @ManyToOne(
         type => UsuarioEntity,
         usuario => usuario.usuarioGuardaCupones
     )
-    usuario: UsuarioEntity[];
+    usuario: UsuarioEntity;
 }

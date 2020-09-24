@@ -20,6 +20,9 @@ import {TypeOrmModule} from "@nestjs/typeorm";
     providers: [
         EstablecimientoService
     ],
+    exports: [
+        EstablecimientoService
+    ]
 })
 export class EstablecimientoModule {
 

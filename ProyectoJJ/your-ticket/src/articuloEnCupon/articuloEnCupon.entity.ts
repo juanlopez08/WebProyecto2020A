@@ -35,11 +35,11 @@ export class ArticuloEnCuponEntity {
         type => ArticuloEntity,  // Entidad con la que nos relacionamos
         articulo => articulo.articuloEnCupones  // Campo con el que nos relacionamos
     )
-    articulo: ArticuloEntity[];
+    articulo: ArticuloEntity;
 
     @ManyToOne(
         type => CuponEntity,
         cupon => cupon.articuloEnCupones
     )
-    cupon: CuponEntity[];
+    cupon: CuponEntity;
 }

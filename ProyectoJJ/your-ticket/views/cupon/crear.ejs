@@ -7,20 +7,35 @@
 <% let existeEstado = typeof estadoCupon != 'undefined' %>
 <% let existeCantidad = typeof cantidadUsos != 'undefined' %>
 <% let existeEstablecimiento = typeof establecimiento != 'undefined' %>
-
+<% const existeCupon = typeof cupon != 'undefined' %>
+<% if (existeCupon) { %>
+    <% existeImagen = true %>
+    <% existeCodigoQR = true %>
+    <% existeInformacion = true %>
+    <% existeEstado = true %>
+    <% existeEstablecimiento = true %>
+    <% pathImagenCupon = cupon.pathImagenCupon %>
+    <% pathCodigoQRCupon = cupon.pathCodigoQRCupon %>
+    <% informacionCupon = cupon.informacionCupon %>
+    <% estadoCupon = cupon.estadoCupon %>
+    <% cantidadUsos = cupon.cantidadUsos %>
+    <% establecimiento = cupon.establecimiento.idEstablecimiento %>
+<% } %>
 
 <% if(error != undefined) { %>
     <div class="container">
         <div class="alert alert-warning" role="alert">
-            Mensaje error: <%= error %>
+            Mensaje: <%= error %>
         </div>
     </div>
 <% } %>
 
 <div class="container">
-    <h1>CUPONES</h1>
+    <h1> <%= existeCupon ? 'EDITAR' : 'CREAR' %> CUPON</h1>
 </div>
-<form action="/cupon/crearDesdeVista" method="POST">
+
+<form action=" <%= existeCupon ? '/cupon/editarDesdeVista/' + cupon.idCupon : '/cupon/crearDesdeVista' %> "
+      method="POST">
     <div class="container">
         <div class="input-group mb-1">
             <label class="input-group-text" for="pathImagenID">URL Imagen: </label>
@@ -76,6 +91,9 @@
                    class="form-control"
                    placeholder="Establecimiento"
                    name="establecimiento"
+            <% if (existeCupon) { %>
+                   disabled
+                    <% } %>
                    value="<%= existeEstablecimiento ? establecimiento : '' %>">
         </div>
         <button type="submit" class="btn btn-primary">Crear</button>

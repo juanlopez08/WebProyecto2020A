@@ -26,5 +26,5 @@ export class FechaUsoEntity{
         type => UsuarioGuardaCuponEntity,
         usuarioGuardaCupon => usuarioGuardaCupon.fechaUsos
     )
-    usuarioGuardaCupon: UsuarioGuardaCuponEntity[];
+    usuarioGuardaCupon: UsuarioGuardaCuponEntity;
 }

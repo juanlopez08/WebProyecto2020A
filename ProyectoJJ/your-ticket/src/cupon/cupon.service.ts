@@ -1,7 +1,7 @@
 import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
 import {CuponEntity} from "./cupon.entity";
-import {Repository} from "typeorm";
+import {FindManyOptions, Like, Repository} from "typeorm";
 
 @Injectable()
 export class CuponService {
@@ -15,12 +15,32 @@ export class CuponService {
         return this.repositorio.save(nuevoCupon);
     }
 
-    buscarTodos(){
-        return this.repositorio.find();
+    buscarTodos(textoConsulta?: string) {
+        const consulta: FindManyOptions<CuponEntity> = {
+            where: [
+                {
+                    informacionCupon: Like(`%${textoConsulta}%`)
+                },
+            ],
+            relations: ['establecimiento']
+        }
+        if (textoConsulta === undefined) {
+            return this.repositorio.find();
+        } else {
+            return this.repositorio.find(consulta);
+        }
     }
 
     buscarUno(id: number) {
-        return this.repositorio.findOne(id);
+        const consulta: FindManyOptions<CuponEntity> = {
+            where: [
+                {
+                    idCupon: id,
+                },
+            ],
+            relations: ['establecimiento']
+        }
+        return this.repositorio.findOne(consulta);
     }
 
     editarUno(cuponEditado: CuponEntity) {

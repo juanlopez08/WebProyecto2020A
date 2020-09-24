@@ -66,7 +66,7 @@ export class CuponEntity {
         type => EstablecimientoEntity,
         establecimiento => establecimiento.cupones
     )
-    establecimiento: EstablecimientoEntity[];
+    establecimiento: EstablecimientoEntity;
 
 
 }
