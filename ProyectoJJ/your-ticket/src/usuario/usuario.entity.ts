@@ -4,7 +4,7 @@ import {UsuarioGuardaCuponEntity} from "../usuarioGuardaCupon/usuarioGuardaCupon
 import {UsuarioTieneRolEntity} from "../usuarioTieneRol/usuarioTieneRol.entity";
 
 @Entity('usuario')
-export class UsuarioEntity{
+export class UsuarioEntity {
 
     @PrimaryGeneratedColumn({
         unsigned: true,
@@ -38,14 +38,15 @@ export class UsuarioEntity{
     @Column({
         name: 'correo_usuario',
         type: 'varchar',
-        length: 100
+        length: 100,
+        unique: true,
     })
     correoUsuario: string;
 
     @Column({
         name: 'contrasena_usuario',
         type: 'varchar',
-        length: 60
+        length: 60,
     })
     contrasenaUsuario: string
 
@@ -61,7 +62,7 @@ export class UsuarioEntity{
 
     @OneToMany(
         type => UsuarioGuardaCuponEntity,
-        usuarioGuardaCupon => usuarioGuardaCupon.cupon
+        usuarioGuardaCupon => usuarioGuardaCupon.usuario
     )
     usuarioGuardaCupones: UsuarioGuardaCuponEntity[];
 

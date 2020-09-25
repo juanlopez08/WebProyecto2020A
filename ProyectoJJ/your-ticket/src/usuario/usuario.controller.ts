@@ -1,4 +1,4 @@
-import {BadRequestException, Body, Controller, Get, Post, Res} from "@nestjs/common";
+import {BadRequestException, Body, Controller, Get, Param, Post, Query, Res} from "@nestjs/common";
 import {UsuarioService} from "./usuario.service";
 import {UsuarioCreateDto} from "./dto/usuario.create-dto";
 import {validate, ValidationError} from "class-validator";
@@ -23,22 +23,112 @@ export class UsuarioController {
         usuarioValido.correoUsuario = parametrosCuerpo.correoUsuario;
         usuarioValido.contrasenaUsuario = parametrosCuerpo.contrasenaUsuario;
         usuarioValido.fechaNacimiento = parametrosCuerpo.fechaNacimiento;
+
+        const stringConsulta = `&cedula=${parametrosCuerpo.cedula}`
+            + `&nombreUsuario=${parametrosCuerpo.nombreUsuario}`
+            + `&apellidoUsuario=${parametrosCuerpo.apellidoUsuario}`
+            + `&correoUsuario=${parametrosCuerpo.correoUsuario}`
+            + `&contrasenaUsuario=${parametrosCuerpo.contrasenaUsuario}`
+            + `&fechaNacimiento=${parametrosCuerpo.fechaNacimiento}`
+
+        if (!(parametrosCuerpo.cedula && parametrosCuerpo.nombreUsuario
+            && parametrosCuerpo.apellidoUsuario && parametrosCuerpo.correoUsuario
+            && parametrosCuerpo.contrasenaUsuario && parametrosCuerpo.fechaNacimiento)) {
+            const mensajeError = 'Existen Campos vacíos'
+            return res.redirect('/usuario/vista/crear?error=' + mensajeError + stringConsulta)
+        }
+
+        let respuesta;
         try {
-            const errores: ValidationError[] = await validate(usuarioValido);
-            if (errores.length > 0){
-                console.log('ERROR', errores)
-            }else{
-                const respuesta = await this._usuarioService.crearUno(parametrosCuerpo);
-                return respuesta;
-            }
+            respuesta = await this._usuarioService.crearUno(parametrosCuerpo);
         } catch (e) {
             console.log(e);
-            throw new BadRequestException({
-                mensaje: 'Error validando datos'
-            });
+            const mensajeError = 'Error Creando Usuario'
+            return res.redirect('/usuario/vista/crear?error=' + mensajeError + stringConsulta)
+        }
+        const errores: ValidationError[] = await validate(usuarioValido);
+        if (errores.length < 1 && respuesta) {
+            return res.redirect('/usuario/principal?error=Usuario Creado')
+        } else {
+            console.log('ERROR', errores)
+            const mensajeError = 'Error Creando Usuario'
+            return res.redirect('/usuario/vista/crear?error=' + mensajeError + stringConsulta)
         }
     }
 
-//    VISTAS
+
+    /*------------VISTAS------------*/
+    @Get('principal')
+    async principal(
+        @Query() parametrosConsulta,
+        @Res() res
+    ) {
+        let resultadoEncontrado;
+        console.log('parametros', parametrosConsulta.busqueda);
+        try {
+            resultadoEncontrado = await this._usuarioService.buscarTodos(parametrosConsulta.busqueda);
+        } catch (e) {
+            console.log(e)
+            const mensajeError = 'Error Mostrando Usuarios'
+            return res.redirect('/usuario/principal?error=' + mensajeError)
+        }
+        if (resultadoEncontrado) {
+            return res.render(
+                'usuario/principal',
+                {
+                    error: parametrosConsulta.error,
+                    arregloUsuarios: resultadoEncontrado,
+                }
+            )
+        } else {
+            const mensajeError = 'Error Mostrando Usuarios'
+            return res.redirect('/usuario/principal?error=' + mensajeError);
+        }
+    }
+
+    @Get('vista/crear')
+    crearCupon(
+        @Query() parametrosConsulta,
+        @Res() res
+    ) {
+        return res.render(
+            'usuario/crear',
+            {
+                error: parametrosConsulta.error,
+                cedula: parametrosConsulta.cedula,
+                nombreUsuario: parametrosConsulta.nombreUsuario,
+                apellidoUsuario: parametrosConsulta.apellidoUsuario,
+                correoUsuario: parametrosConsulta.correoUsuario,
+                contrasenaUsuario: parametrosConsulta.contrasenaUsuario,
+                fechaNacimiento: parametrosConsulta.fechaNacimiento,
+            }
+        )
+    }
+
+    @Get('vista/editar/:id')
+    async editarUsuario(
+        @Query() parametrosConsulta,
+        @Param() parametrosRuta,
+        @Res() res,
+    ) {
+        const id = Number(parametrosRuta.id)
+        let usuarioEncontrado;
+        try {
+            usuarioEncontrado = await this._usuarioService.buscarUno(id)
+        } catch (e) {
+            console.log('Error del servidor')
+            return res.redirect('/usuario/principal?error= Error buscando usuario')
+        }
+        if (usuarioEncontrado) {
+            return res.render(
+                'usuario/crear',
+                {
+                    error: parametrosConsulta.error,
+                    usuario: usuarioEncontrado,
+                }
+            )
+        }
+    }
+
 
 }

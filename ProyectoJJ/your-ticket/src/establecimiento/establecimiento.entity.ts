@@ -43,7 +43,7 @@ export class EstablecimientoEntity{
     @Column({
         name: 'direccion_establecimiento',
         type: 'varchar',
-        length: 45,
+        length: 100,
     })
     direccionEstablecimiento: string;
 

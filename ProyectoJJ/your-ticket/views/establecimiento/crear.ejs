@@ -39,6 +39,7 @@
             <label class="input-group-text" for="pathImagenID">URL Imagen: </label>
             <input id="pathImagenID"
                    type="text"
+                   maxlength=500
                    class="form-control"
                    placeholder="Path Imagen"
                    name="pathImagenEstablecimiento"
@@ -48,6 +49,7 @@
             <label class="input-group-text" for="nombreID">Nombre Establecimiento: </label>
             <input id="nombreID"
                    type="text"
+                   maxlength=60
                    class="form-control"
                    placeholder="Nombre del Establecimiento"
                    name="nombreEstablecimiento"
@@ -57,6 +59,7 @@
             <label class="input-group-text" for="categoriaID">Categoría: </label>
             <input id="categoriaID"
                    type="text"
+                   maxlength=60
                    class="form-control"
                    placeholder="Categoría"
                    name="categoriaEstablecimiento"
@@ -67,6 +70,7 @@
             <input id="telefonoID"
                    class="form-control"
                    type="text"
+                   maxlength=12
                    placeholder="Teléfono"
                    name="telefonoEstablecimiento"
                    value="<%= existeTelefono ? telefonoEstablecimiento : '' %>">
@@ -75,6 +79,7 @@
             <label class="input-group-text" for="direccionID">Direccción: </label>
             <input id="direccionID"
                    type="text"
+                   maxlength=100
                    class="form-control"
                    placeholder="Dirección"
                    name="direccionEstablecimiento"
