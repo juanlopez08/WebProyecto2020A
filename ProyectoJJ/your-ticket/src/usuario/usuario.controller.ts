@@ -2,6 +2,9 @@ import {BadRequestException, Body, Controller, Get, Param, Post, Query, Res} fro
 import {UsuarioService} from "./usuario.service";
 import {UsuarioCreateDto} from "./dto/usuario.create-dto";
 import {validate, ValidationError} from "class-validator";
+import {EstablecimientoUpdateDto} from "../establecimiento/dto/establecimiento.update-dto";
+import {UsuarioEntity} from "./usuario.entity";
+import {UsuarioUpdateDto} from "./dto/usuario.update-dto";
 
 @Controller('usuario')
 export class UsuarioController {
@@ -56,6 +59,52 @@ export class UsuarioController {
         }
     }
 
+    @Post('editarDesdeVista/:id')
+    async editarDesdeVista(
+        @Param() parametrosRuta,
+        @Body() parametrosCuerpo,
+        @Res() res
+    ) {
+        const usuarioEditado = {
+            idUsuario: Number(parametrosRuta.id),
+            cedula: parametrosCuerpo.cedula,
+            nombreUsuario: parametrosCuerpo.nombreUsuario,
+            apellidoUsuario: parametrosCuerpo.apellidoUsuario,
+            correoUsuario: parametrosCuerpo.correoUsuario,
+            contrasenaUsuario: parametrosCuerpo.contrasenaUsuario,
+            fechaNacimiento: parametrosCuerpo.fechaNacimiento,
+        } as UsuarioEntity;
+
+        const usuarioValido = new UsuarioUpdateDto();
+        usuarioValido.nombreUsuario = parametrosCuerpo.nombreUsuario;
+        usuarioValido.apellidoUsuario = parametrosCuerpo.apellidoUsuario;
+        usuarioValido.correoUsuario = parametrosCuerpo.correoUsuario;
+        usuarioValido.contrasenaUsuario = parametrosCuerpo.contrasenaUsuario;
+
+        try {
+            await this._usuarioService.editarUno(usuarioEditado);
+            return res.redirect('/usuario/principal?error=Usuario Editado')
+        } catch (e) {
+            const mensajeError = 'Error Editando Usuario'
+            return res.redirect('/usuario/principal?error=' + mensajeError)
+        }
+    }
+
+    @Post('eliminarDesdeVista/:id')
+    async eliminarDesdeVista(
+        @Param() parametrosRuta,
+        @Res() res
+    ) {
+        try {
+            const id = Number(parametrosRuta.id);
+            await this._usuarioService.eliminarUno(id)
+            return res.redirect('/usuario/principal?error=Usuario eliminado')
+        } catch (e) {
+            console.log(e)
+            return res.redirect('/usuario/principal?error=Error eliminando usuario')
+        }
+    }
+
 
     /*------------VISTAS------------*/
     @Get('principal')
@@ -64,7 +113,6 @@ export class UsuarioController {
         @Res() res
     ) {
         let resultadoEncontrado;
-        console.log('parametros', parametrosConsulta.busqueda);
         try {
             resultadoEncontrado = await this._usuarioService.buscarTodos(parametrosConsulta.busqueda);
         } catch (e) {
