@@ -1,9 +1,9 @@
-import {IsAlphanumeric, IsNotEmpty, MaxLength} from "class-validator";
+import {IsAlphanumeric, IsNotEmpty, IsString, MaxLength} from "class-validator";
 
 export class RolDeleteDto {
 
     @IsNotEmpty()
-    @IsAlphanumeric()
+    @IsString()
     @MaxLength(45)
     tipoRol: string;
 }

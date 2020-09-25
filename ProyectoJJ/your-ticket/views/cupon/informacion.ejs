@@ -3,6 +3,7 @@
 
 <% const existeCupon = typeof cupon != 'undefined' %>
 <% if (existeCupon) { %>
+    <% idCupon = cupon.idCupon %>
     <% pathImagenCupon = cupon.pathImagenCupon %>
     <% pathCodigoQRCupon = cupon.pathCodigoQRCupon %>
     <% informacionCupon = cupon.informacionCupon %>
@@ -12,32 +13,30 @@
 <% } %>
 
 <div class="container">
-    <% { %>
-        <div class="mb-1">
-            <div class="btn-group">
-                <a href="/cupon/vista/editar/<%= cupon.idCupon %>">
-                    <button type="submit" class="btn btn-primary mr-1" style="width: 12rem;">
-                        Editar Cupón
-                    </button>
-                </a>
-                <form action="/cupon/eliminarDesdeVista/<%= cupon.idCupon %>" method="POST">
-                    <button type="submit" class="btn btn-primary ml-1" style="width: 12rem;">
-                        Eliminar Cupón
-                    </button>
-                </form>
-            </div>
+    <div class="mb-1">
+        <div class="btn-group">
+            <a href="/cupon/vista/editar/<%= idCupon %>">
+                <button type="submit" class="btn btn-primary mr-1" style="width: 12rem;">
+                    Editar Cupón
+                </button>
+            </a>
+            <form action="/cupon/eliminarDesdeVista/<%= cupon.idCupon %>" method="POST">
+                <button type="submit" class="btn btn-primary ml-1" style="width: 12rem;">
+                    Eliminar Cupón
+                </button>
+            </form>
         </div>
-        <img src="<%= pathImagenCupon %>" style="width: 25rem;">
-        <p style="width: 25rem;"><%= informacionCupon %></p>
-        <p style="width: 25rem;">Cantidad de usos posibles: <%= cantidadUsos %></p>
-        <p style="width: 25rem;">Establecimiento: <%= nombreEstablecimiento %></p>
-        <img src="<%= pathCodigoQRCupon %>" style="width: 25rem;">
-        <div>
-            <button type="button" class="btn btn-primary" style="width: 25rem;">
-                Guardar Cupón
-            </button>
-        </div>
-    <% } %>
+    </div>
+    <img src="<%= pathImagenCupon %>" style="width: 25rem;" class="mb-3">
+    <p style="width: 25rem;">Establecimiento: <%= nombreEstablecimiento %></p>
+    <p style="width: 25rem;"><%= informacionCupon %></p>
+    <p style="width: 25rem;">Cantidad de usos posibles: <%= cantidadUsos %></p>
+    <img src="<%= pathCodigoQRCupon %>" style="width: 25rem;">
+    <div class="mb-3">
+        <button type="button" class="btn btn-primary" style="width: 25rem;">
+            Guardar Cupón
+        </button>
+    </div>
 </div>
 
 <%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

@@ -1,7 +1,7 @@
-import {IsAlphanumeric, IsNotEmpty, IsNumber, IsPositive, MaxLength, MinLength} from "class-validator";
+import {IsAlphanumeric, IsNotEmpty, IsNumber, IsPositive, IsString, MaxLength, MinLength} from "class-validator";
 
 export class ArticuloCreateDto {
-    @IsAlphanumeric()
+    @IsString()
     @IsNotEmpty()
     @MinLength(3)
     @MaxLength(60)
@@ -12,7 +12,7 @@ export class ArticuloCreateDto {
     @IsPositive()
     precioArticulo: number;
 
-    @IsAlphanumeric()
+    @IsString()
     @IsNotEmpty()
     @MinLength(3)
     @MaxLength(100)

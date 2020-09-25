@@ -64,7 +64,7 @@ export class CuponController {
         @Body() parametrosCuerpo,
         @Res() res,
     ) {
-        const usuarioEditado = {
+        const cuponEditado = {
             idCupon: Number(parametrosRuta.id),
             pathImagenCupon: parametrosCuerpo.pathImagenCupon,
             pathCodigoQRCupon: parametrosCuerpo.pathCodigoQRCupon,
@@ -74,14 +74,14 @@ export class CuponController {
         } as CuponEntity;
 
         const cuponValido = new CuponUpdateDto()
-        cuponValido.pathImagenCupon = usuarioEditado.pathImagenCupon;
-        cuponValido.pathCodigoQRCupon = usuarioEditado.pathCodigoQRCupon;
-        cuponValido.informacionCupon = usuarioEditado.informacionCupon;
-        cuponValido.estadoCupon = usuarioEditado.estadoCupon;
-        cuponValido.cantidadUsos = Number(usuarioEditado.cantidadUsos);
+        cuponValido.pathImagenCupon = cuponEditado.pathImagenCupon;
+        cuponValido.pathCodigoQRCupon = cuponEditado.pathCodigoQRCupon;
+        cuponValido.informacionCupon = cuponEditado.informacionCupon;
+        cuponValido.estadoCupon = cuponEditado.estadoCupon;
+        cuponValido.cantidadUsos = Number(cuponEditado.cantidadUsos);
 
         try {
-            await this._cuponService.editarUno(usuarioEditado);
+            await this._cuponService.editarUno(cuponEditado);
             return res.redirect('/cupon/principal?error=Cupon Editado')
         } catch (e) {
             const mensajeError = 'Error Editando Cupon'
@@ -117,7 +117,7 @@ export class CuponController {
         } catch (e) {
             console.log(e)
             const mensajeError = 'Error Mostrando Cupones'
-            return res.redirect('/cupon/vista/crear?error=' + mensajeError)
+            return res.redirect('/cupon/principal?error=' + mensajeError)
         }
         if (resultadoEncontrado) {
             return res.render(
@@ -129,7 +129,7 @@ export class CuponController {
             )
         } else {
             const mensajeError = 'Error Mostrando Cupones'
-            return res.redirect('/cupon/vista/crear?error=' + mensajeError)
+            return res.redirect('/cupon/principal?error=' + mensajeError);
         }
     }
 
@@ -188,10 +188,11 @@ export class CuponController {
         let resultadoEncontrado
         try {
             resultadoEncontrado = await this._cuponService.buscarUno(idCupon)
+            console.log(resultadoEncontrado)
         } catch (e) {
             console.log(e)
             const mensajeError = 'Error Mostrando Información del Cupón'
-            return res.redirect('/cupon/principal?error=' + mensajeError)
+            return res.redirect('/cupon/principal?error=' + mensajeError);
         }
         if (resultadoEncontrado) {
             return res.render(

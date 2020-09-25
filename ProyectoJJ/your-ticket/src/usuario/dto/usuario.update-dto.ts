@@ -3,12 +3,12 @@ import {IsAlpha, IsEmail, IsNotEmpty, IsString, MaxLength} from "class-validator
 export class UsuarioUpdateDto {
 
     @IsNotEmpty()
-    @IsAlpha()
+    @IsString()
     @MaxLength(60)
     nombreUsuario: string;
 
     @IsNotEmpty()
-    @IsAlpha()
+    @IsString()
     @MaxLength(60)
     apellidoUsuario: string;
 

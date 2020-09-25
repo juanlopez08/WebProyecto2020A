@@ -1,0 +1,49 @@
+<%- include('../compartido/menu/menu-component') %>
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+
+
+<% const existeEstablecimiento = typeof establecimiento != 'undefined' %>
+<% if (existeEstablecimiento) { %>
+    <% nombreEstablecimiento = establecimiento.nombreEstablecimiento %>
+    <% pathImagenEstablecimiento = establecimiento.pathImagenEstablecimiento %>
+    <% categoriaEstablecimiento = establecimiento.categoriaEstablecimiento %>
+    <% telefonoEstablecimiento = establecimiento.telefonoEstablecimiento %>
+    <% direccionEstablecimiento = establecimiento.direccionEstablecimiento %>
+    <% idEstablecimiento = establecimiento.idEstablecimiento %>
+<% } %>
+
+<div class="container">
+    <div class="mb-1">
+        <div class="btn-group">
+            <a href="/establecimiento/vista/editar/<%= establecimiento.idCupon %>">
+                <button type="submit" class="btn btn-primary mr-1">
+                    Editar Establecimiento
+                </button>
+            </a>
+            <form action="/establecimiento/eliminarDesdeVista/<%= establecimiento.idCupon %>" method="POST">
+                <button type="submit" class="btn btn-primary ml-1">
+                    Eliminar Establecimiento
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="card-group">
+        <div>
+            <img src="<%= pathImagenEstablecimiento %>" style="width: 25rem;">
+        </div>
+        <div>
+            <p style="width: 25rem;"><%= nombreEstablecimiento %></p>
+            <p style="width: 25rem;">Categoría: <%= categoriaEstablecimiento %></p>
+            <p style="width: 25rem;">Dirección: <%= direccionEstablecimiento %></p>
+            <p style="width: 25rem;">Teléfono: <%= telefonoEstablecimiento %></p>
+        </div>
+    </div>
+    <div>
+        <a href="/establecimiento/<%= idEstablecimiento %>/cupones">
+            a
+        </a>
+    </div>
+
+</div>
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

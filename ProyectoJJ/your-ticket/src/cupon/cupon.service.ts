@@ -24,14 +24,31 @@ export class CuponService {
             ],
             relations: ['establecimiento']
         }
+        const consultaEstablecimiento : FindManyOptions<CuponEntity> = {
+            relations: ['establecimiento']
+        }
         if (textoConsulta === undefined) {
-            return this.repositorio.find();
+            return this.repositorio.find(consultaEstablecimiento);
         } else {
             return this.repositorio.find(consulta);
         }
     }
 
-    buscarUno(id: number) {
+    buscarTodosPorEstablecimiento(id: number, textoConsulta?: string) {
+        const consulta: FindManyOptions<CuponEntity> = {
+            where: [
+                {
+                    establecimiento: id,
+                    informacionCupon: Like(`%${textoConsulta}%`)
+                },
+            ],
+            relations: ['establecimiento']
+        }
+        return this.repositorio.find(consulta);
+
+    }
+
+    buscarUno(id?: number) {
         const consulta: FindManyOptions<CuponEntity> = {
             where: [
                 {

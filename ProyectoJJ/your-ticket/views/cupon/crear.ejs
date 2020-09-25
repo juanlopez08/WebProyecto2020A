@@ -14,6 +14,7 @@
     <% existeInformacion = true %>
     <% existeEstado = true %>
     <% existeEstablecimiento = true %>
+    <% idCupon = cupon.idCupon %>
     <% pathImagenCupon = cupon.pathImagenCupon %>
     <% pathCodigoQRCupon = cupon.pathCodigoQRCupon %>
     <% informacionCupon = cupon.informacionCupon %>
@@ -34,7 +35,7 @@
     <h1> <%= existeCupon ? 'EDITAR' : 'CREAR' %> CUPON</h1>
 </div>
 
-<form action=" <%= existeCupon ? '/cupon/editarDesdeVista/' + cupon.idCupon : '/cupon/crearDesdeVista' %> "
+<form action=" <%= existeCupon ? '/cupon/editarDesdeVista/' + idCupon : '/cupon/crearDesdeVista' %> "
       method="POST">
     <div class="container">
         <div class="input-group mb-1">
@@ -96,7 +97,13 @@
                     <% } %>
                    value="<%= existeEstablecimiento ? establecimiento : '' %>">
         </div>
-        <button type="submit" class="btn btn-primary">Crear</button>
+        <button type="submit" class="btn btn-primary">
+            <% if(existeCupon) { %>
+                Editar
+            <% } else { %>
+                Crear
+            <% } %>
+        </button>
         <button type="reset" class="btn btn-secondary">Limpiar Campos</button>
     </div>
 </form>

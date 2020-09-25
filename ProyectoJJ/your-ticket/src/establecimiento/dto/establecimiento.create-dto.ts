@@ -1,24 +1,29 @@
-import {IsAlphanumeric, IsNotEmpty, MaxLength} from "class-validator";
+import {IsAlphanumeric, IsNotEmpty, IsString, MaxLength} from "class-validator";
 
-export class EstablecicmientoCreateDto {
+export class EstablecimientoCreateDto {
 
     @IsNotEmpty()
-    @IsAlphanumeric()
+    @IsString()
     @MaxLength(60)
     nombreEstablecimiento: string;
 
     @IsNotEmpty()
-    @IsAlphanumeric()
+    @IsString()
+    @MaxLength(500)
+    pathImagenEstablecimiento: string;
+
+    @IsNotEmpty()
+    @IsString()
     @MaxLength(60)
     categoriaEstablecimiento: string;
 
     @IsNotEmpty()
-    @IsAlphanumeric()
+    @IsString()
     @MaxLength(45)
     telefonoEstablecimiento: string;
 
     @IsNotEmpty()
-    @IsAlphanumeric()
+    @IsString()
     @MaxLength(60)
     direccionEstablecimiento: string;
 }

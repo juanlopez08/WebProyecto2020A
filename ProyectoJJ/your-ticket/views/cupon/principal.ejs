@@ -1,6 +1,8 @@
 <%- include('../compartido/menu/menu-component') %>
 <%- include('../compartido/estilos-generales/estilos-generales-component') %>
 
+<% const existeEstablecimiento = typeof establecimiento != 'undefined' %>
+
 <% if(error != undefined) { %>
     <div class="container">
         <div class="alert alert-warning" role="alert">
@@ -18,10 +20,10 @@
             </button>
         </a>
     </div>
-    <form action="/cupon/principal" method="GET">
+    <form action=" <%= existeEstablecimiento ? '/establecimiento/' + establecimiento + '/cupones' : '/cupon/principal' %> ">
         <div class="input-group mb-3">
             <label for="buscarID"></label>
-            <input id="buscarID" type="text" class="form-control" placeholder="Buscar Cupón" name="busqueda" >
+            <input id="buscarID" type="text" class="form-control" placeholder="Buscar Cupón" name="busqueda">
             <div class="input-group-append">
                 <button class="btn btn-outline-primary" type="submit">Buscar</button>
             </div>
@@ -35,7 +37,9 @@
                         <img src="<%= cupon.pathImagenCupon %>" class="card-img-top">
                         <div class="card-body">
                             <p class="card-text">
-                                <%= cupon.informacionCupon %>
+                                Detalles: <%= cupon.informacionCupon %>
+                                <br>
+                                Establecimiento: <%= cupon.establecimiento.nombreEstablecimiento %>
                             </p>
                             <a href="/cupon/vista/informacion/<%= cupon.idCupon %>"
                                class="btn btn-primary">
