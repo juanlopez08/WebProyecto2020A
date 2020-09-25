@@ -1,4 +1,4 @@
-import {Controller, Get, Res} from "@nestjs/common";
+import {Body, Controller, Get, Post, Req, Res, Session} from "@nestjs/common";
 
 @Controller('inicio')
 export class InicioController {
@@ -9,15 +9,14 @@ export class InicioController {
 //    MÉTODOS
 
 
-//    VISTAS
-
+    /*------------VISTAS------------*/
     @Get()
     inicio(
-        @Res() res
+        @Res() res,
+        @Session() session,
     ) {
         return res.render(
             'inicio/inicio'
         )
     }
-
 }

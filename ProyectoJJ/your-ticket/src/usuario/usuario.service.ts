@@ -44,6 +44,20 @@ export class UsuarioService {
         return this.repositorio.findOne(id);
     }
 
+    logeo(correo: string, contrasena: string) {
+        const consulta: FindManyOptions<UsuarioEntity> = {
+            where: [
+                {
+                    correoUsuario: `${correo}`,
+                    contrasenaUsuario: `${contrasena}`
+                },
+            ],
+            relations: ['usuarioTieneRoles', 'usuarioGuardaCupones']
+        }
+        return this.repositorio.find(consulta);
+    }
+
+
     editarUno(usuarioEditado: UsuarioEntity) {
         return this.repositorio.save(usuarioEditado)
     }
