@@ -2,6 +2,10 @@
 <%- include('../compartido/estilos-generales/estilos-generales-component') %>
 
 <% const existeEstablecimiento = typeof establecimiento != 'undefined' %>
+<% const existeTitulo = typeof titulo != 'undefined' %>
+<% if (existeTitulo) { %>
+    <% tituloPantalla = titulo %>
+<% } %>
 
 <% if(error != undefined) { %>
     <div class="container">
@@ -12,7 +16,7 @@
 <% } %>
 
 <div class="container">
-    <h1>CUPONES</h1>
+    <h1>CUPONES <%= existeTitulo ? tituloPantalla : '' %> </h1>
     <div class="mb-3">
         <a href="/cupon/vista/crear">
             <button type="button" class="btn btn-primary">

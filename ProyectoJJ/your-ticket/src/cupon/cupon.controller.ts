@@ -8,6 +8,7 @@ import {CuponEntity} from "./cupon.entity";
 import {UsuarioGuardaCuponService} from "../usuarioGuardaCupon/usuarioGuardaCupon.service";
 import {UsuarioGuardaCuponCreateDto} from "../usuarioGuardaCupon/dto/usuarioGuardaCupon.update-dto";
 import {UsuarioGuardaCuponEntity} from "../usuarioGuardaCupon/usuarioGuardaCupon.entity";
+import {type} from "os";
 
 @Controller('cupon')
 export class CuponController {
@@ -115,22 +116,50 @@ export class CuponController {
         @Session() session,
         @Res() res,
     ) {
+        let cuponYaGuardado;
+        const idCupon = Number(parametrosRuta.id)
         if (typeof session.correoUsuario != 'undefined') {
             const cuponValido = new UsuarioGuardaCuponCreateDto();
             cuponValido.cantidadUsos = parametrosCuerpo.cantidadUsos;
 
-            const cuponGuardado = {
-                cantidadUsos: cuponValido.cantidadUsos,
-                cupon: parametrosRuta.id,
-                usuario: session.idUsuario,
-            } as UsuarioGuardaCuponEntity;
+            const cuponActual = await this._cuponService.buscarUno(idCupon)
+            cuponYaGuardado = await this._usuarioGuardaCuponService.buscarUnoGuardado(idCupon, Number(session.idUsuario))
 
-            await this._usuarioGuardaCuponService.crearUno(cuponGuardado)
+            if (!cuponYaGuardado) {
+                const cuponGuardado = {
+                    cantidadUsos: cuponValido.cantidadUsos,
+                    cupon: parametrosRuta.id,
+                    usuario: session.idUsuario,
+                } as UsuarioGuardaCuponEntity;
 
-            return res.redirect('/cupon/vista/informacion/' + parametrosRuta.id + '?error=Cupon guardado')
+                await this._usuarioGuardaCuponService.crearUno(cuponGuardado)
+                // return res.render(
+                //     'cupon/informacion',
+                //     {
+                //         error: 'Cupon Guardado',
+                //         cupon: cuponActual,
+                //         cuponGuardado: true,
+                //     }
+                // )
+                return res.redirect('/cuponesGuardados?error=Cupon Guardado')
+            }
         } else {
             return res.redirect('/cupon/vista/informacion/' + parametrosRuta.id + '?error=Debe estar logeado')
         }
+    }
+
+    @Post('quitar/:id')
+    async quitarCupon(
+        @Param() parametrosRuta,
+        @Session() session,
+        @Res() res,
+    ) {
+        let cuponYaGuardado;
+        const idCupon = Number(parametrosRuta.id);
+        const idUsuario = Number(session.idUsuario)
+        cuponYaGuardado = await this._usuarioGuardaCuponService.buscarUnoGuardado(idCupon, idUsuario);
+        await this._usuarioGuardaCuponService.eliminarUno(cuponYaGuardado.idUsuarioGuardaCupon);
+        return res.redirect('/cuponesGuardados?error=Cupon removido');
     }
 
 
@@ -212,6 +241,7 @@ export class CuponController {
         @Query() parametrosConsulta,
         @Param() parametrosRuta,
         @Res() res,
+        @Session() session,
     ) {
         const idCupon = Number(parametrosRuta.id);
         let resultadoEncontrado
@@ -222,17 +252,29 @@ export class CuponController {
             const mensajeError = 'Error Mostrando Información del Cupón'
             return res.redirect('/cupon/principal?error=' + mensajeError);
         }
+
+        const cuponGuardado = await this._usuarioGuardaCuponService.buscarUnoGuardado(idCupon, Number(session.idUsuario))
+
+        let existeCuponGuardado
+        if (cuponGuardado) {
+            existeCuponGuardado = true;
+        } else {
+            existeCuponGuardado = false
+        }
+
         if (resultadoEncontrado) {
             return res.render(
                 'cupon/informacion',
                 {
                     error: parametrosConsulta.error,
                     cupon: resultadoEncontrado,
+                    cuponGuardado: existeCuponGuardado,
                 }
             )
         } else {
             const mensajeError = 'Error Mostrando Información del Cupón'
             return res.redirect('/cupon/principal?error=' + mensajeError)
         }
+
     }
 }

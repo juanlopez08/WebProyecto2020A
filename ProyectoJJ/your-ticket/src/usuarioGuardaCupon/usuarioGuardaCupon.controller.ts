@@ -29,13 +29,14 @@ export class UsuarioGuardaCuponController {
                     arregloCupones.push(cuponGuardado.cupon);
                 }
             })
-            console.log('arreglo:', arregloCupones)
+
             if (arregloCupones.length > 0) {
                 return res.render(
                     'cupon/principal',
                     {
                         error: parametrosConsulta.error,
                         arregloCupones: arregloCupones,
+                        titulo: 'GUARDADOS',
                     }
                 )
             } else {

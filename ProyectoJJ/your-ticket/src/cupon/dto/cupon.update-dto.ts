@@ -19,7 +19,7 @@ export class CuponUpdateDto {
     informacionCupon: string;
 
     @IsNotEmpty()
-    @IsIn(['activo', 'inactivo'])
+    @IsIn(['Activo', 'Inactivo'])
     estadoCupon: string;
 
     @IsNotEmpty()

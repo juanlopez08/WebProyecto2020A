@@ -2,6 +2,7 @@
 <%- include('../compartido/estilos-generales/estilos-generales-component') %>
 
 <% const existeCupon = typeof cupon != 'undefined' %>
+<% const existeCuponGuardado = cuponGuardado %>
 <% if (existeCupon) { %>
     <% idCupon = cupon.idCupon %>
     <% pathImagenCupon = cupon.pathImagenCupon %>
@@ -36,14 +37,15 @@
         </div>
     </div>
     <div class="mb-3">
-        <form action="/cupon/guardar/<%= idCupon %>" method="POST">
+        <form action=" <%= existeCuponGuardado ? '/cupon/quitar/' + idCupon : '/cupon/guardar/' + idCupon  %>"
+              method="POST">
             <label for="cantidadID"></label>
             <input id="cantidadID"
                    hidden
                    name="cantidadUsos"
                    value="<%= cantidadUsos %>">
             <button type="submit" class="btn btn-primary" style="width: 25rem;">
-                Guardar Cupón
+                <%= existeCuponGuardado ? 'Quitar' : 'Guardar' %> Cupón
             </button>
         </form>
     </div>
