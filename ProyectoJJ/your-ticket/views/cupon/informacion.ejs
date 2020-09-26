@@ -12,6 +12,14 @@
     <% nombreEstablecimiento = cupon.establecimiento.nombreEstablecimiento %>
 <% } %>
 
+<% if(error != undefined) { %>
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Mensaje: <%= error %>
+        </div>
+    </div>
+<% } %>
+
 <div class="container">
     <div class="mb-1">
         <div class="btn-group">
@@ -27,16 +35,24 @@
             </form>
         </div>
     </div>
+    <div class="mb-3">
+        <form action="/cupon/guardar/<%= idCupon %>" method="POST">
+            <label for="cantidadID"></label>
+            <input id="cantidadID"
+                   hidden
+                   name="cantidadUsos"
+                   value="<%= cantidadUsos %>">
+            <button type="submit" class="btn btn-primary" style="width: 25rem;">
+                Guardar Cupón
+            </button>
+        </form>
+    </div>
     <img src="<%= pathImagenCupon %>" style="width: 25rem;" class="mb-3">
     <p style="width: 25rem;">Establecimiento: <%= nombreEstablecimiento %></p>
     <p style="width: 25rem;"><%= informacionCupon %></p>
     <p style="width: 25rem;">Cantidad de usos posibles: <%= cantidadUsos %></p>
     <img src="<%= pathCodigoQRCupon %>" style="width: 25rem;">
-    <div class="mb-3">
-        <button type="button" class="btn btn-primary" style="width: 25rem;">
-            Guardar Cupón
-        </button>
-    </div>
+
 </div>
 
 <%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

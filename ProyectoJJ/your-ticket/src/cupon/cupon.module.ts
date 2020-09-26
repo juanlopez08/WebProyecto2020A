@@ -4,6 +4,7 @@ import {CuponService} from "./cupon.service";
 import {CuponEntity} from "./cupon.entity";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {EstablecimientoModule} from "../establecimiento/establecimiento.module";
+import {UsuarioGuardaCuponModule} from "../usuarioGuardaCupon/usuarioGuardaCupon.module";
 
 @Module({
     controllers: [
@@ -11,6 +12,7 @@ import {EstablecimientoModule} from "../establecimiento/establecimiento.module";
     ],
     imports: [
         forwardRef(() => EstablecimientoModule),
+        forwardRef(() => UsuarioGuardaCuponModule),
         TypeOrmModule
             .forFeature(
                 [

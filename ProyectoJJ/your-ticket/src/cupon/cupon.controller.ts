@@ -1,17 +1,21 @@
-import {BadRequestException, Body, Controller, Get, Param, Post, Query, Res} from "@nestjs/common";
+import {BadRequestException, Body, Controller, Get, Param, Post, Query, Res, Session} from "@nestjs/common";
 import {CuponService} from "./cupon.service";
 import {CuponCreateDto} from "./dto/cupon.create-dto";
 import {validate, ValidationError} from "class-validator";
 import {EstablecimientoService} from "../establecimiento/establecimiento.service";
 import {CuponUpdateDto} from "./dto/cupon.update-dto";
 import {CuponEntity} from "./cupon.entity";
+import {UsuarioGuardaCuponService} from "../usuarioGuardaCupon/usuarioGuardaCupon.service";
+import {UsuarioGuardaCuponCreateDto} from "../usuarioGuardaCupon/dto/usuarioGuardaCupon.update-dto";
+import {UsuarioGuardaCuponEntity} from "../usuarioGuardaCupon/usuarioGuardaCupon.entity";
 
 @Controller('cupon')
 export class CuponController {
 
     constructor(
         private readonly _cuponService: CuponService,
-        private readonly _establecimientoService: EstablecimientoService
+        private readonly _establecimientoService: EstablecimientoService,
+        private readonly _usuarioGuardaCuponService: UsuarioGuardaCuponService,
     ) {
     }
 
@@ -104,6 +108,31 @@ export class CuponController {
         }
     }
 
+    @Post('guardar/:id')
+    async guardarCupon(
+        @Param() parametrosRuta,
+        @Body() parametrosCuerpo,
+        @Session() session,
+        @Res() res,
+    ) {
+        if (typeof session.correoUsuario != 'undefined') {
+            const cuponValido = new UsuarioGuardaCuponCreateDto();
+            cuponValido.cantidadUsos = parametrosCuerpo.cantidadUsos;
+
+            const cuponGuardado = {
+                cantidadUsos: cuponValido.cantidadUsos,
+                cupon: parametrosRuta.id,
+                usuario: session.idUsuario,
+            } as UsuarioGuardaCuponEntity;
+
+            await this._usuarioGuardaCuponService.crearUno(cuponGuardado)
+
+            return res.redirect('/cupon/vista/informacion/' + parametrosRuta.id + '?error=Cupon guardado')
+        } else {
+            return res.redirect('/cupon/vista/informacion/' + parametrosRuta.id + '?error=Debe estar logeado')
+        }
+    }
+
 
     /*------------VISTAS------------*/
     @Get('principal')
@@ -188,7 +217,6 @@ export class CuponController {
         let resultadoEncontrado
         try {
             resultadoEncontrado = await this._cuponService.buscarUno(idCupon)
-            console.log(resultadoEncontrado)
         } catch (e) {
             console.log(e)
             const mensajeError = 'Error Mostrando Información del Cupón'

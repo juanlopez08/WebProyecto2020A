@@ -49,10 +49,11 @@ export class AppController {
         } catch (e) {
             console.log(e);
             const mensajeError = 'Usuario o contraseña incorrectos'
-            return response.redirect('/login?error=' + mensajeError)
+            return response.redirect('/login?error=' + mensajeError);
         }
         if (errores.length < 1 && respuesta.length > 0) {
             session.correoUsuario = usuarioValido.correoUsuario;
+            session.idUsuario = respuesta[0].idUsuario;
             return response.redirect('/inicio');
         } else {
             console.log('ERROR', errores);
@@ -68,6 +69,7 @@ export class AppController {
         @Req() request
     ) {
         session.correoUsuario = undefined;
+        session.idUsuario = undefined;
         request.session.destroy();
         return response.redirect('login')
     }

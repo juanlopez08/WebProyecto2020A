@@ -11,7 +11,7 @@ export class EstablecimientoController {
 
     constructor(
         private readonly _establecimientoService: EstablecimientoService,
-        readonly _cuponService: CuponService,
+        private readonly _cuponService: CuponService,
     ) {
     }
 
