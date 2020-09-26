@@ -69,8 +69,9 @@ export class CuponController {
         @Body() parametrosCuerpo,
         @Res() res,
     ) {
+        const idCupon = Number(parametrosRuta.id)
         const cuponEditado = {
-            idCupon: Number(parametrosRuta.id),
+            idCupon: idCupon,
             pathImagenCupon: parametrosCuerpo.pathImagenCupon,
             pathCodigoQRCupon: parametrosCuerpo.pathCodigoQRCupon,
             informacionCupon: parametrosCuerpo.informacionCupon,
@@ -85,12 +86,27 @@ export class CuponController {
         cuponValido.estadoCupon = cuponEditado.estadoCupon;
         cuponValido.cantidadUsos = Number(cuponEditado.cantidadUsos);
 
+        let stringConsulta = `&pathImagenCupon=${parametrosCuerpo.pathImagenCupon}`
+            + `&pathCodigoQRCupon=${parametrosCuerpo.pathCodigoQRCupon}`
+            + `&informacionCupon=${parametrosCuerpo.informacionCupon}`
+            + `&estadoCupon=${parametrosCuerpo.estadoCupon}`
+            + `&cantidadUsos=${parametrosCuerpo.cantidadUsos}`
+
+        let respuesta
         try {
-            await this._cuponService.editarUno(cuponEditado);
-            return res.redirect('/cupon/principal?error=Cupon Editado')
+            respuesta = await this._cuponService.editarUno(cuponEditado);
         } catch (e) {
+            console.log(e);
             const mensajeError = 'Error Editando Cupon'
-            return res.redirect('/cupon/principal?error=' + mensajeError)
+            return res.redirect('/cupon/vista/editar/' + idCupon + '?error=' + mensajeError + stringConsulta)
+        }
+        const errores: ValidationError[] = await validate(cuponValido);
+        if (errores.length < 1 && respuesta) {
+            return res.redirect('/cupon/principal?error=Cupon Editado')
+        } else {
+            console.log('ERROR', errores);
+            const mensajeError = 'Error Editando Cupon'
+            return res.redirect('/cupon/vista/editar/' + idCupon + '?error=' + mensajeError + stringConsulta)
         }
     }
 

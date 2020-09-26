@@ -63,8 +63,9 @@ export class EstablecimientoController {
         @Body() parametrosCuerpo,
         @Res() res,
     ) {
+        const idEstablecimiento = Number(parametrosRuta.id)
         const establecimientoEditado = {
-            idEstablecimiento: Number(parametrosRuta.id),
+            idEstablecimiento: idEstablecimiento,
             nombreEstablecimiento: parametrosCuerpo.nombreEstablecimiento,
             pathImagenEstablecimiento: parametrosCuerpo.pathImagenEstablecimiento,
             categoriaEstablecimiento: parametrosCuerpo.categoriaEstablecimiento,
@@ -79,12 +80,27 @@ export class EstablecimientoController {
         establecimientoValido.telefonoEstablecimiento = establecimientoEditado.telefonoEstablecimiento;
         establecimientoValido.direccionEstablecimiento = establecimientoEditado.direccionEstablecimiento;
 
+        let stringConsulta = `&nombreEstablecimiento=${parametrosCuerpo.nombreEstablecimiento}`
+            + `&pathImagenEstablecimiento=${parametrosCuerpo.pathImagenEstablecimiento}`
+            + `&categoriaEstablecimiento=${parametrosCuerpo.categoriaEstablecimiento}`
+            + `&telefonoEstablecimiento=${parametrosCuerpo.telefonoEstablecimiento}`
+            + `&direccionEstablecimiento=${parametrosCuerpo.direccionEstablecimiento}`
+
+        let respuesta
         try {
-            await this._establecimientoService.editarUno(establecimientoEditado);
-            return res.redirect('/establecimiento/principal?error=Cupon Editado')
+            respuesta = await this._establecimientoService.editarUno(establecimientoEditado);
         } catch (e) {
-            const mensajeError = 'Error Editando Establecimiento'
-            return res.redirect('/establecimiento/principal?error=' + mensajeError)
+            console.log(e);
+            const mensajeError = 'Error Creando Establecimiento'
+            return res.redirect('/establecimiento/vista/editar/' + idEstablecimiento + '?error=' + mensajeError + stringConsulta)
+        }
+        const errores: ValidationError[] = await validate(establecimientoValido);
+        if (errores.length < 1 && respuesta) {
+            return res.redirect('/establecimiento/principal?error=Cupon Editado')
+        } else {
+            console.log('ERROR', errores);
+            const mensajeError = 'Error Editando Establecimiento';
+            return res.redirect('/establecimiento/vista/editar/' + idEstablecimiento + '?error=' + mensajeError + stringConsulta)
         }
     }
 

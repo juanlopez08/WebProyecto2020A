@@ -23,7 +23,10 @@
                 </li>
             </ul>
         </div>
-        <a class="nav-link text-light" href="/login">Login</a>
+        <% if (typeof logeado != 'undefined') { %>
+            <p class="nav text-light"> <%= logeado %> </p>
+        <% } %>
+        <a class="nav-link text-light" href="/login">Login </a>
         <a class="nav-link text-light" href="/logout">Logout </a>
     </nav>
 </div>

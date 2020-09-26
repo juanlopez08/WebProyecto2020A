@@ -65,14 +65,13 @@ export class UsuarioController {
         @Body() parametrosCuerpo,
         @Res() res
     ) {
+        const idUsuario = Number(parametrosRuta.id)
         const usuarioEditado = {
-            idUsuario: Number(parametrosRuta.id),
-            cedula: parametrosCuerpo.cedula,
+            idUsuario: idUsuario,
             nombreUsuario: parametrosCuerpo.nombreUsuario,
             apellidoUsuario: parametrosCuerpo.apellidoUsuario,
             correoUsuario: parametrosCuerpo.correoUsuario,
             contrasenaUsuario: parametrosCuerpo.contrasenaUsuario,
-            fechaNacimiento: parametrosCuerpo.fechaNacimiento,
         } as UsuarioEntity;
 
         const usuarioValido = new UsuarioUpdateDto();
@@ -81,12 +80,26 @@ export class UsuarioController {
         usuarioValido.correoUsuario = parametrosCuerpo.correoUsuario;
         usuarioValido.contrasenaUsuario = parametrosCuerpo.contrasenaUsuario;
 
+        const stringConsulta = `&nombreUsuario=${parametrosCuerpo.nombreUsuario}`
+            + `&apellidoUsuario=${parametrosCuerpo.apellidoUsuario}`
+            + `&correoUsuario=${parametrosCuerpo.correoUsuario}`
+            + `&contrasenaUsuario=${parametrosCuerpo.contrasenaUsuario}`
+        
+        let respuesta;
         try {
-            await this._usuarioService.editarUno(usuarioEditado);
-            return res.redirect('/usuario/principal?error=Usuario Editado')
+            respuesta = await this._usuarioService.editarUno(usuarioEditado);
         } catch (e) {
+            console.log(e);
             const mensajeError = 'Error Editando Usuario'
-            return res.redirect('/usuario/principal?error=' + mensajeError)
+            return res.redirect('/usuario/vista/editar/' + idUsuario + '?error=' + mensajeError + stringConsulta)
+        }
+        const errores: ValidationError[] = await validate(usuarioValido);
+        if (errores.length < 1 && respuesta) {
+            return res.redirect('/usuario/principal?error=Usuario Editado')
+        } else {
+            console.log('ERROR', errores)
+            const mensajeError = 'Error Editando Usuario'
+            return res.redirect('/usuario/vista/editar/' + idUsuario + '?error=' + mensajeError + stringConsulta)
         }
     }
 

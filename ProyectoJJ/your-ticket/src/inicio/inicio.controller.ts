@@ -20,6 +20,7 @@ export class InicioController {
             'inicio/inicio',
             {
                 error: parametrosConsulta.error,
+                logeado: session.correoUsuario,
             }
         )
     }
