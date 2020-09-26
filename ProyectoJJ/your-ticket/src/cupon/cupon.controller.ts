@@ -122,7 +122,6 @@ export class CuponController {
             const cuponValido = new UsuarioGuardaCuponCreateDto();
             cuponValido.cantidadUsos = parametrosCuerpo.cantidadUsos;
 
-            const cuponActual = await this._cuponService.buscarUno(idCupon)
             cuponYaGuardado = await this._usuarioGuardaCuponService.buscarUnoGuardado(idCupon, Number(session.idUsuario))
 
             if (!cuponYaGuardado) {
@@ -133,14 +132,7 @@ export class CuponController {
                 } as UsuarioGuardaCuponEntity;
 
                 await this._usuarioGuardaCuponService.crearUno(cuponGuardado)
-                // return res.render(
-                //     'cupon/informacion',
-                //     {
-                //         error: 'Cupon Guardado',
-                //         cupon: cuponActual,
-                //         cuponGuardado: true,
-                //     }
-                // )
+
                 return res.redirect('/cuponesGuardados?error=Cupon Guardado')
             }
         } else {
