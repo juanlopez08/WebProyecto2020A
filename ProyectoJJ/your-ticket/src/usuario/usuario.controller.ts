@@ -1,4 +1,4 @@
-import {BadRequestException, Body, Controller, Get, Param, Post, Query, Res} from "@nestjs/common";
+import {BadRequestException, Body, Controller, Get, Param, Post, Query, Res, Session} from "@nestjs/common";
 import {UsuarioService} from "./usuario.service";
 import {UsuarioCreateDto} from "./dto/usuario.create-dto";
 import {validate, ValidationError} from "class-validator";
@@ -123,6 +123,7 @@ export class UsuarioController {
     @Get('principal')
     async principal(
         @Query() parametrosConsulta,
+        @Session() session,
         @Res() res
     ) {
         let resultadoEncontrado;
@@ -139,6 +140,7 @@ export class UsuarioController {
                 {
                     error: parametrosConsulta.error,
                     arregloUsuarios: resultadoEncontrado,
+                    logeado: session.correoUsuario,
                 }
             )
         } else {
@@ -150,7 +152,8 @@ export class UsuarioController {
     @Get('vista/crear')
     crearCupon(
         @Query() parametrosConsulta,
-        @Res() res
+        @Session() session,
+        @Res() res,
     ) {
         return res.render(
             'usuario/crear',
@@ -162,6 +165,7 @@ export class UsuarioController {
                 correoUsuario: parametrosConsulta.correoUsuario,
                 contrasenaUsuario: parametrosConsulta.contrasenaUsuario,
                 fechaNacimiento: parametrosConsulta.fechaNacimiento,
+                logeado: session.correoUsuario,
             }
         )
     }
@@ -170,6 +174,7 @@ export class UsuarioController {
     async editarUsuario(
         @Query() parametrosConsulta,
         @Param() parametrosRuta,
+        @Session() session,
         @Res() res,
     ) {
         const id = Number(parametrosRuta.id)
@@ -186,10 +191,9 @@ export class UsuarioController {
                 {
                     error: parametrosConsulta.error,
                     usuario: usuarioEncontrado,
+                    logeado: session.correoUsuario,
                 }
             )
         }
     }
-
-
 }

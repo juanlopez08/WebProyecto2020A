@@ -37,6 +37,7 @@ export class UsuarioGuardaCuponController {
                         error: parametrosConsulta.error,
                         arregloCupones: arregloCupones,
                         titulo: 'GUARDADOS',
+                        logeado: session.correoUsuario,
                     }
                 )
             } else {
@@ -44,8 +45,9 @@ export class UsuarioGuardaCuponController {
                 return res.redirect('/inicio?error=' + mensajeError);
             }
         } catch (e) {
-
+            console.log(e)
+            const mensajeError = 'Error Mostrando Cupones Guardados';
+            return res.redirect('/inicio?error=' + mensajeError);
         }
-
     }
 }

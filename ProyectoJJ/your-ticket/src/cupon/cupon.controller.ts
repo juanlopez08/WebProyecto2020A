@@ -175,7 +175,8 @@ export class CuponController {
     @Get('principal')
     async principal(
         @Query() parametrosConsulta,
-        @Res() res
+        @Session() session,
+        @Res() res,
     ) {
         let resultadoEncontrado;
         try {
@@ -191,6 +192,7 @@ export class CuponController {
                 {
                     error: parametrosConsulta.error,
                     arregloCupones: resultadoEncontrado,
+                    logeado: session.correoUsuario,
                 }
             )
         } else {
@@ -202,7 +204,8 @@ export class CuponController {
     @Get('vista/crear')
     crearCupon(
         @Query() parametrosConsulta,
-        @Res() res
+        @Session() session,
+        @Res() res,
     ) {
         return res.render(
             'cupon/crear',
@@ -215,6 +218,7 @@ export class CuponController {
                 estadoCupon: parametrosConsulta.estadoCupon,
                 cantidadUsos: parametrosConsulta.cantidadUsos,
                 establecimiento: parametrosConsulta.establecimiento,
+                logeado: session.correoUsuario,
             }
         )
     }
@@ -223,6 +227,7 @@ export class CuponController {
     async editarCupon(
         @Query() parametrosConsulta,
         @Param() parametrosRuta,
+        @Session() session,
         @Res() res,
     ) {
         const id = Number(parametrosRuta.id)
@@ -239,6 +244,7 @@ export class CuponController {
                 {
                     error: parametrosConsulta.error,
                     cupon: cuponEncontrado,
+                    logeado: session.correoUsuario,
                 }
             )
         }
@@ -277,6 +283,7 @@ export class CuponController {
                     error: parametrosConsulta.error,
                     cupon: resultadoEncontrado,
                     cuponGuardado: existeCuponGuardado,
+                    logeado: session.correoUsuario,
                 }
             )
         } else {

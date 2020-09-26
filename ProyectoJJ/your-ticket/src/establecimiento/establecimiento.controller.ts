@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Post, Query, Res} from "@nestjs/common";
+import {Body, Controller, Get, Param, Post, Query, Res, Session} from "@nestjs/common";
 import {EstablecimientoService} from "./establecimiento.service";
 import {CuponService} from "../cupon/cupon.service";
 import {validate, ValidationError} from "class-validator";
@@ -124,6 +124,7 @@ export class EstablecimientoController {
     @Get('principal')
     async principal(
         @Query() parametrosConsulta,
+        @Session() session,
         @Res() res,
     ) {
         let resultadoEncontrado;
@@ -140,6 +141,7 @@ export class EstablecimientoController {
                 {
                     error: parametrosConsulta.error,
                     arregloEstablecimientos: resultadoEncontrado,
+                    logeado: session.correoUsuario,
                 }
             )
         } else {
@@ -151,6 +153,7 @@ export class EstablecimientoController {
     @Get('vista/crear')
     crearEstablecimiento(
         @Query() parametrosConsulta,
+        @Session() session,
         @Res() res
     ) {
         return res.render(
@@ -162,6 +165,7 @@ export class EstablecimientoController {
                 categoriaEstablecimiento: parametrosConsulta.categoriaEstablecimiento,
                 telefonoEstablecimiento: parametrosConsulta.telefonoEstablecimiento,
                 direccionEstablecimiento: parametrosConsulta.direccionEstablecimiento,
+                logeado: session.correoUsuario,
             }
         )
     }
@@ -170,6 +174,7 @@ export class EstablecimientoController {
     async editarEstablecimiento(
         @Query() parametrosConsulta,
         @Param() parametrosRuta,
+        @Session() session,
         @Res() res,
     ) {
         const id = Number(parametrosRuta.id)
@@ -186,6 +191,7 @@ export class EstablecimientoController {
                 {
                     error: parametrosConsulta.error,
                     establecimiento: establecimientoEncontrado,
+                    logeado: session.correoUsuario,
                 }
             )
         }
@@ -195,6 +201,7 @@ export class EstablecimientoController {
     async cuponPrincipal(
         @Query() parametrosConsulta,
         @Param() parametrosRuta,
+        @Session() session,
         @Res() res,
     ) {
         let resultadoEncontrado;
@@ -217,6 +224,7 @@ export class EstablecimientoController {
                     error: parametrosConsulta.error,
                     arregloCupones: resultadoEncontrado,
                     establecimiento: parametrosRuta.id,
+                    logeado: session.correoUsuario,
                 }
             )
         } else {
