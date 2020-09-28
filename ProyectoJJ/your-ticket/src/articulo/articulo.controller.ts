@@ -46,7 +46,7 @@ export class ArticuloController {
         }
         const errores: ValidationError[] = await validate(articuloValido);
         if (errores.length < 1 && respuesta) {
-            return res.redirect('/articulo/principal?error=Cupon Creado');
+            return res.redirect('/articulo/principal?error=Artículo Creado');
         } else {
             console.log('ERROR', errores);
             const mensajeError = 'Error Creando Artículo';
@@ -106,7 +106,7 @@ export class ArticuloController {
             return res.redirect('/articulo/principal?error=Cupón eliminado')
         } catch (e) {
             console.log(e)
-            return res.redirect('/articulo/principal?error=Error eliminando cupón')
+            return res.redirect('/articulo/principal?error=Error eliminando artículo. No debe estar asignado a ningún cupón')
         }
     }
 

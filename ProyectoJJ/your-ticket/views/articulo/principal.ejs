@@ -35,16 +35,27 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Precio ($)</th>
                 <th scope="col">Descripción</th>
+                <th scope="col">Cupón Asignado</th>
                 <th scope="col">Administrar</th>
             </tr>
             </thead>
             <tbody>
             <% arregloArticulos.forEach((articulo) => { %>
                 <tr>
+                    <% console.log('artiuclo:', articulo) %>
                     <th scope="row"><%= articulo.idArticulo %></th>
                     <td><%= articulo.nombreArticulo %></td>
                     <td>$ <%= articulo.precioArticulo %></td>
                     <td><%= articulo.descripcionArticulo %></td>
+                    <td>
+                        <% if(articulo.articuloEnCupones.length > 0) { %>
+                            <% articulo.articuloEnCupones.forEach((articuloAsignado) => { %>
+                                <%= articuloAsignado.cupon.informacionCupon %>
+                            <% }) %>
+                        <% } else { %>
+                            Sin Asignar
+                        <% } %>
+                    </td>
                     <td>
                         <div class="btn-group">
                             <a href="/articulo/vista/editar/<%= articulo.idArticulo %>">

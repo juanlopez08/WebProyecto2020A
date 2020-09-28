@@ -64,7 +64,8 @@ export class CuponEntity {
 
     @ManyToOne(
         type => EstablecimientoEntity,
-        establecimiento => establecimiento.cupones
+        establecimiento => establecimiento.cupones,
+        {onDelete: "CASCADE"},
     )
     establecimiento: EstablecimientoEntity;
 

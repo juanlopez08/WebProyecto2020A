@@ -26,10 +26,13 @@ export class ArticuloService {
                     descripcionArticulo: Like(`%${textoConsulta}%`),
                 },
             ],
-            relations: ['articuloEnCupones']
+            relations: ['articuloEnCupones', 'articuloEnCupones.cupon']
+        }
+        const relaciones: FindManyOptions<ArticuloEntity> = {
+            relations: ['articuloEnCupones', 'articuloEnCupones.cupon']
         }
         if (textoConsulta === undefined) {
-            return this.repositorio.find();
+            return this.repositorio.find(relaciones);
         } else {
             return this.repositorio.find(consulta);
         }

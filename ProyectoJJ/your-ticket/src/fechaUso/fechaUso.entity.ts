@@ -3,7 +3,7 @@ import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {UsuarioGuardaCuponEntity} from "../usuarioGuardaCupon/usuarioGuardaCupon.entity";
 
 @Entity('fecha_uso')
-export class FechaUsoEntity{
+export class FechaUsoEntity {
 
     @PrimaryGeneratedColumn({
         unsigned: true,
@@ -24,7 +24,8 @@ export class FechaUsoEntity{
 
     @ManyToOne(
         type => UsuarioGuardaCuponEntity,
-        usuarioGuardaCupon => usuarioGuardaCupon.fechaUsos
+        usuarioGuardaCupon => usuarioGuardaCupon.fechaUsos,
+        {onDelete: "CASCADE"},
     )
     usuarioGuardaCupon: UsuarioGuardaCuponEntity;
 }

@@ -1,4 +1,4 @@
-import {Body, Controller, Param, Post, Query, Res, Session} from "@nestjs/common";
+import {Body, Controller, Get, Param, Post, Query, Res, Session} from "@nestjs/common";
 import {ArticuloEnCuponService} from "./articuloEnCupon.service";
 import {ArticuloService} from "../articulo/articulo.service";
 import {CuponService} from "../cupon/cupon.service";
@@ -88,7 +88,67 @@ export class ArticuloEnCuponController {
         }
     }
 
+
+    @Post('quitar/:idArticulo/:idCupon')
+    async quitarCupon(
+        @Param() parametrosRuta,
+        @Session() session,
+        @Res() res,
+    ) {
+        let articuloYaAsignado;
+        const idArticulo = Number(parametrosRuta.idArticulo);
+        const idCupon = Number(parametrosRuta.idCupon);
+        try {
+            articuloYaAsignado = await this._articuloEnCuponService.buscarUno(idCupon, idArticulo)
+        } catch (e) {
+            console.log(e)
+            return res.redirect('/inicio?error=No se encontró el artículo deseado');
+        }
+        if (articuloYaAsignado) {
+            await this._articuloEnCuponService.eliminarUno(articuloYaAsignado.idArtEnCup)
+            return res.redirect('/inicio?error=Artículo removido');
+        } else {
+            return res.redirect('/inicio?error=No existe ese artículo');
+        }
+
+    }
+
     /*------------VISTAS------------*/
+    @Get('vista/articulos/:id')
+    async articulosEnCupon(
+        @Session() session,
+        @Param() parametrosRuta,
+        @Res() res,
+    ) {
+        let respuesta;
+        let cupon;
+        const idCupon = Number(parametrosRuta.id);
+        try {
+            respuesta = await this._articuloEnCuponService.buscarTodosPorCupon(idCupon)
+        } catch (e) {
+            console.log(e)
+            return res.redirect('/cupon/principal?error=Este Cupón no tiene artículos asignados')
+        }
+        try {
+            cupon = await this._cuponService.buscarUno(idCupon);
+        } catch (e) {
+            console.log(e)
+            return res.redirect('/cupon/principal?error=Error buscando cupón');
+        }
+        if (respuesta && cupon) {
+            return res.render(
+                'articulo/asignados',
+                {
+                    error: undefined,
+                    logeado: session.correoUsuario,
+                    arregloArticulosAsignados: respuesta,
+                    cupon: cupon,
+                }
+            )
+        } else {
+            return res.redirect('/cupon/principal?error=Este Cupón no tiene artículos asignados.')
+        }
+    }
 
 
 }
