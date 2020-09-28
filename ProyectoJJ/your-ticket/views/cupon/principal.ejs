@@ -1,0 +1,65 @@
+<%- include('../compartido/menu/menu-component') %>
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+
+<% const existeEstablecimiento = typeof establecimiento != 'undefined' %>
+<% const existeTitulo = typeof titulo != 'undefined' %>
+<% if (existeTitulo) { %>
+    <% tituloPantalla = titulo %>
+<% } %>
+
+<% if(error != undefined) { %>
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Mensaje: <%= error %>
+        </div>
+    </div>
+<% } %>
+
+<div class="container">
+    <h1>CUPONES <%= existeTitulo ? tituloPantalla : '' %> </h1>
+    <div class="mb-3">
+        <a href="/cupon/vista/crear">
+            <button type="button" class="btn btn-primary">
+                Crear Cupón
+            </button>
+        </a>
+    </div>
+    <form action=" <%= existeEstablecimiento ? '/establecimiento/' + establecimiento + '/cupones' : '/cupon/principal' %> ">
+        <div class="input-group mb-3">
+            <label for="buscarID"></label>
+            <input id="buscarID" type="text" class="form-control" placeholder="Buscar Cupón" name="busqueda">
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="submit">Buscar</button>
+            </div>
+        </div>
+    </form>
+    <div class="mb-3">
+        <div class="row">
+            <% arregloCupones.forEach((cupon) => { %>
+                <div class="col-lg-4">
+                    <div class="card mb-3" style="width: 18rem;">
+                        <img src="<%= cupon.pathImagenCupon %>" class="card-img-top">
+                        <div class="card-body">
+                            <p class="card-text">
+                                Detalles: <%= cupon.informacionCupon %>
+                                <br>
+                                Establecimiento: <%= cupon.establecimiento.nombreEstablecimiento %>
+                            </p>
+                            <a href="/cupon/vista/informacion/<%= cupon.idCupon %>"
+                               class="btn btn-primary">
+                                Abrir
+                            </a>
+                            <a href="/articuloEnCupon/vista/articulos/<%= cupon.idCupon %>"
+                               class="btn btn-primary">
+                                Artículos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

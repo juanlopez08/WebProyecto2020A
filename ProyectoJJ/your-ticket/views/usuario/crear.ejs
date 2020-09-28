@@ -1,0 +1,116 @@
+<%- include('../compartido/menu/menu-component') %>
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+
+<% let existeCedula = typeof cedula !== 'undefined' %>
+<% let existeNombre = typeof nombreUsuario !== 'undefined' %>
+<% let existeApellido = typeof apellidoUsuario !== 'undefined' %>
+<% let existeCorreo = typeof correoUsuario != 'undefined' %>
+<% let existeContrasena = typeof contrasenaUsuario != 'undefined' %>
+<% let existeFecha = typeof fechaNacimiento != 'undefined' %>
+<% const existeUsuario = typeof usuario != 'undefined' %>
+<% if (existeUsuario) { %>
+    <% existeCedula = true %>
+    <% existeNombre = true %>
+    <% existeApellido = true %>
+    <% existeCorreo = true %>
+    <% existeContrasena = true %>
+    <% existeFecha = true %>
+    <% idUsuario = usuario.idUsuario %>
+    <% cedula = usuario.cedula %>
+    <% nombreUsuario = usuario.nombreUsuario %>
+    <% apellidoUsuario = usuario.apellidoUsuario %>
+    <% correoUsuario = usuario.correoUsuario %>
+    <% contrasenaUsuario = usuario.contrasenaUsuario %>
+    <% fechaNacimiento = usuario.fechaNacimiento %>
+<% } %>
+
+<% if(error != undefined) { %>
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Mensaje: <%= error %>
+        </div>
+    </div>
+<% } %>
+
+<div class="container">
+    <h1> <%= existeUsuario ? 'EDITAR' : 'CREAR' %> USUARIO</h1>
+</div>
+
+<form action=" <%= existeUsuario ? '/usuario/editarDesdeVista/' + idUsuario : '/usuario/crearDesdeVista' %> "
+      method="POST">
+    <div class="container">
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="cedulaID">Cedula: </label>
+            <input id="cedulaID"
+                   type="text"
+                   class="form-control"
+                   placeholder="Cedula"
+                   name="cedula"
+            <% if (existeUsuario) { %>
+                   disabled
+                    <% } %>
+                   value="<%= existeCedula ? cedula : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="nombreID">Nombre (s): </label>
+            <input id="nombreID"
+                   type="text"
+                   class="form-control"
+                   placeholder="Nombre (s)"
+                   name="nombreUsuario"
+                   value="<%= existeNombre ? nombreUsuario : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="apellidoID">Apellido (s): </label>
+            <input id="apellidoID"
+                   type="text"
+                   class="form-control"
+                   placeholder="Apellido (s)"
+                   name="apellidoUsuario"
+                   value="<%= existeApellido ? apellidoUsuario : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="correoID">Correo: </label>
+            <input id="correoID"
+                   type="email"
+                   class="form-control"
+                   placeholder="Correo"
+                   name="correoUsuario"
+                   value="<%= existeCorreo ? correoUsuario : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="contrasenaID">Contraseña: </label>
+            <input id="contrasenaID"
+                   type="password"
+                   minlength=8
+                   maxlength=60
+                   class="form-control"
+                   placeholder="Contraseña (8 caracteres)"
+                   name="contrasenaUsuario"
+                   value="<%= existeContrasena ? contrasenaUsuario : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="fechaID">Fecha Nacimiento: </label>
+            <input id="fechaID"
+                   type="date"
+                   class="form-control"
+                   placeholder="Establecimiento"
+                   name="fechaNacimiento"
+            <% if (existeUsuario) { %>
+                   disabled
+                    <% } %>
+                   value="<%= existeFecha ? fechaNacimiento : '' %>">
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <% if(existeUsuario) { %>
+                Editar
+            <% } else { %>
+                Crear
+            <% } %>
+        </button>
+        <button type="reset" class="btn btn-secondary">Limpiar Campos</button>
+    </div>
+</form>
+
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

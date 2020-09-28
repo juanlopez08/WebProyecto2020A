@@ -30,13 +30,15 @@ export class UsuarioGuardaCuponEntity{
 
     @ManyToOne(
         type => CuponEntity,
-        cupon => cupon.usuarioGuardaCupones
+        cupon => cupon.usuarioGuardaCupones,
+        {onDelete: "CASCADE"}
     )
-    cupon: CuponEntity[];
+    cupon: CuponEntity;
 
     @ManyToOne(
         type => UsuarioEntity,
-        usuario => usuario.usuarioGuardaCupones
+        usuario => usuario.usuarioGuardaCupones,
+        {onDelete: "CASCADE"},
     )
-    usuario: UsuarioEntity[];
+    usuario: UsuarioEntity;
 }

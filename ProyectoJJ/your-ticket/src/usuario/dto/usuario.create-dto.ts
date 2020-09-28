@@ -8,12 +8,12 @@ export class UsuarioCreateDto {
     cedula: string;
 
     @IsNotEmpty()
-    @IsAlpha()
+    @IsString()
     @MaxLength(60)
     nombreUsuario: string;
 
     @IsNotEmpty()
-    @IsAlpha()
+    @IsString()
     @MaxLength(60)
     apellidoUsuario: string;
 

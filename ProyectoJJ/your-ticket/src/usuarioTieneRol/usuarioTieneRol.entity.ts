@@ -19,11 +19,11 @@ export class UsuarioTieneRolEntity {
         type => UsuarioEntity,
         usuario => usuario.usuarioTieneRoles
     )
-    usuario: UsuarioEntity[];
+    usuario: UsuarioEntity;
 
     @ManyToOne(
         type => RolEntity,
         rol => rol.usuarioTieneRoles
     )
-    rol: RolEntity[];
+    rol: RolEntity;
 }

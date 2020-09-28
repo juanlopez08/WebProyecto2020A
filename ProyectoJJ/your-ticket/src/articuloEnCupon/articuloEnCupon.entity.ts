@@ -18,16 +18,16 @@ export class ArticuloEnCuponEntity {
         type: 'int',
         nullable: true,
     })
-    porcentaje: number;
+    porcentaje?: number;
 
     @Column({
         name: 'valor',
         type: 'decimal',
         precision: 10,
-        scale: 4,
+        scale: 2,
         nullable: true,
     })
-    valor: number;
+    valor?: number;
 
     // RELACIONES
 
@@ -35,11 +35,12 @@ export class ArticuloEnCuponEntity {
         type => ArticuloEntity,  // Entidad con la que nos relacionamos
         articulo => articulo.articuloEnCupones  // Campo con el que nos relacionamos
     )
-    articulo: ArticuloEntity[];
+    articulo: ArticuloEntity;
 
     @ManyToOne(
         type => CuponEntity,
-        cupon => cupon.articuloEnCupones
+        cupon => cupon.articuloEnCupones,
+        {onDelete: "CASCADE"},
     )
-    cupon: CuponEntity[];
+    cupon: CuponEntity;
 }

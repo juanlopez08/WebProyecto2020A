@@ -1,0 +1,54 @@
+<%- include('../compartido/menu/menu-component') %>
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+
+<% if(error != undefined) { %>
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Mensaje: <%= error %>
+        </div>
+    </div>
+<% } %>
+
+<div class="container">
+    <h1>ARTÍCULOS</h1>
+    <h2>Cupón: <%= cupon.informacionCupon %> - ID: <%= cupon.idCupon %></h2>
+    <div class="table-responsive table-bordered">
+        <table class="table">
+            <thead class="bg-primary">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio ($)</th>
+                <th scope="col">Valor Descuento ($)</th>
+                <th scope="col">Porcentaje Descuento</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Administrar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% arregloArticulosAsignados.forEach((articuloAsignado) => { %>
+                <tr>
+                    <th scope="row"><%= articuloAsignado.articulo.idArticulo %></th>
+                    <td><%= articuloAsignado.articulo.nombreArticulo %></td>
+                    <td>$ <%= articuloAsignado.articulo.precioArticulo %></td>
+                    <td>$ <%= articuloAsignado.valor %></td>
+                    <td><%= articuloAsignado.porcentaje %> %</td>
+                    <td><%= articuloAsignado.articulo.descripcionArticulo %></td>
+                    <td>
+                        <div class="btn-group">
+                            <form action="/articuloEnCupon/quitar/<%= articuloAsignado.articulo.idArticulo %>/<%= cupon.idCupon %>"
+                                  method="POST">
+                                <button type="submit" class="btn btn-primary">
+                                    Quitar
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

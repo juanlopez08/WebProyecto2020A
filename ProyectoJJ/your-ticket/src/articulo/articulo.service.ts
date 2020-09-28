@@ -1,7 +1,8 @@
 import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
 import {ArticuloEntity} from "./articulo.entity";
-import {Repository} from "typeorm";
+import {FindManyOptions, Like, Repository} from "typeorm";
+import {CuponEntity} from "../cupon/cupon.entity";
 
 @Injectable()
 export class ArticuloService {
@@ -15,8 +16,26 @@ export class ArticuloService {
         return this.repositorio.save(nuevoArticulo);
     }
 
-    buscarTodos(){
-        return this.repositorio.find();
+    buscarTodos(textoConsulta?: string) {
+        const consulta: FindManyOptions<ArticuloEntity> = {
+            where: [
+                {
+                    nombreArticulo: Like(`%${textoConsulta}%`),
+                },
+                {
+                    descripcionArticulo: Like(`%${textoConsulta}%`),
+                },
+            ],
+            relations: ['articuloEnCupones', 'articuloEnCupones.cupon']
+        }
+        const relaciones: FindManyOptions<ArticuloEntity> = {
+            relations: ['articuloEnCupones', 'articuloEnCupones.cupon']
+        }
+        if (textoConsulta === undefined) {
+            return this.repositorio.find(relaciones);
+        } else {
+            return this.repositorio.find(consulta);
+        }
     }
 
     buscarUno(id: number) {

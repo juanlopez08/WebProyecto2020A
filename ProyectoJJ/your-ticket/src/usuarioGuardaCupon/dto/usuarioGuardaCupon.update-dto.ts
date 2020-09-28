@@ -1,9 +1,9 @@
-import {IsNotEmpty, IsNumber, IsPositive} from "class-validator";
+import {IsNotEmpty, IsNumber, IsPositive, Min} from "class-validator";
 
-export class UsuarioGuardaCuponCreateDto {
+export class UsuarioGuardaCuponUpdateDto {
 
     @IsNotEmpty()
     @IsNumber()
-    @IsPositive()
+    @Min(0)
     cantidadUsos: number
 }

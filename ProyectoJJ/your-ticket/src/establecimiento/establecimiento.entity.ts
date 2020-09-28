@@ -20,6 +20,13 @@ export class EstablecimientoEntity{
     nombreEstablecimiento: string;
 
     @Column({
+        name: 'path_imagen_establecimiento',
+        type: 'varchar',
+        length: 500,
+    })
+    pathImagenEstablecimiento: string;
+
+    @Column({
         name: 'categoria_establecimiento',
         type: 'varchar',
         length: 60,
@@ -36,7 +43,7 @@ export class EstablecimientoEntity{
     @Column({
         name: 'direccion_establecimiento',
         type: 'varchar',
-        length: 45,
+        length: 100,
     })
     direccionEstablecimiento: string;
 

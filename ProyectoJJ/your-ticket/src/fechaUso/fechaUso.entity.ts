@@ -3,28 +3,29 @@ import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {UsuarioGuardaCuponEntity} from "../usuarioGuardaCupon/usuarioGuardaCupon.entity";
 
 @Entity('fecha_uso')
-export class FechaUsoEntity{
+export class FechaUsoEntity {
 
     @PrimaryGeneratedColumn({
         unsigned: true,
         comment: 'Identificador',
         name: 'id_fecha_uso',
     })
-    idUsuario: number;
+    idFechaUso: number;
 
     @Column({
-        name: 'fecha_uso',
+        name: 'fecha_de_uso',
         type: 'varchar',
         length: 10,
         nullable: true
     })
-    fechaUso?: string
+    fechaUso?: string;
 
     // RELACIONES
 
     @ManyToOne(
         type => UsuarioGuardaCuponEntity,
-        usuarioGuardaCupon => usuarioGuardaCupon.fechaUsos
+        usuarioGuardaCupon => usuarioGuardaCupon.fechaUsos,
+        {onDelete: "CASCADE"},
     )
-    usuarioGuardaCupon: UsuarioGuardaCuponEntity[];
+    usuarioGuardaCupon: UsuarioGuardaCuponEntity;
 }

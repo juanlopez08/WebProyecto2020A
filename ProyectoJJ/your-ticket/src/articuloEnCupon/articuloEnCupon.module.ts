@@ -3,12 +3,16 @@ import {ArticuloEnCuponController} from "./articuloEnCupon.controller";
 import {ArticuloEnCuponService} from "./articuloEnCupon.service";
 import {ArticuloEnCuponEntity} from "./articuloEnCupon.entity";
 import {TypeOrmModule} from "@nestjs/typeorm";
+import {ArticuloModule} from "../articulo/articulo.module";
+import {CuponModule} from "../cupon/cupon.module";
 
 @Module({
     controllers: [
         ArticuloEnCuponController
     ],
-    imports:[
+    imports: [
+        ArticuloModule,
+        CuponModule,
         TypeOrmModule
             .forFeature(
                 [

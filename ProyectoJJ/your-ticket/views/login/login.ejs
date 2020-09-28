@@ -1,0 +1,28 @@
+<%- include('../compartido/menu/menu-component') %>
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+
+<% if(error != undefined) { %>
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Mensaje: <%= error %>
+        </div>
+    </div>
+<% } %>
+
+<form action="/login" method="POST" class="container">
+    <label for="usuarioID">Usuario: </label>
+    <input id="usuarioID"
+           type="text"
+           name="correoUsuario">
+    <label for="ID">Contraseña: </label>
+    <input id="passwordID"
+           type="password"
+           minlength=8
+           name="contrasenaUsuario">
+    <button type="submit" class="btn btn-primary">
+        Logearse
+    </button>
+</form>
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>
+

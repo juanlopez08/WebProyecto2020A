@@ -1,0 +1,100 @@
+<%- include('../compartido/menu/menu-component') %>
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+
+<% if(error != undefined) { %>
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Mensaje: <%= error %>
+        </div>
+    </div>
+<% } %>
+
+<div class="container">
+    <h1> ASIGNAR ARTÍCULO</h1>
+</div>
+<form action=" <%= '/articuloEnCupon/asignarDesdeVista/' + articulo.idArticulo %> "
+      method="POST">
+    <div class="container mb-3">
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="nombreID">Nombre: </label>
+            <input id="nombreID"
+                   type="text"
+                   class="form-control"
+                   name="nombreArticulo"
+                   disabled
+                   value="<%= articulo.nombreArticulo %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="precioID">Precio ($): </label>
+            <input id="precioID"
+                   type=text
+                   class="form-control"
+                   name="precioArticulo"
+                   disabled
+                   value="<%= articulo.precioArticulo %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="descripcionID">Descripción: </label>
+            <input id="descripcionID"
+                   type="text"
+                   class="form-control"
+                   name="descripcionArticulo"
+                   disabled
+                   value="<%= articulo.descripcionArticulo %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="porcentajeID">Porcentaje: </label>
+            <input id="porcentajeID"
+                   type="number"
+                   min=0
+                   max=100
+                   placeholder="Porcentaje del 1 al 100"
+                   class="form-control"
+                   name="porcentaje">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="valorID">Valor: </label>
+            <input id="valorID"
+                   type="text"
+                   placeholder="Valor en dólares"
+                   class="form-control"
+                   name="valor">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="cuponID">Cupón: </label>
+            <input id="cuponID"
+                   type="number"
+                   min=0
+                   placeholder="ID del Cupón"
+                   class="form-control"
+                   name="idCupon">
+        </div>
+        <button type="submit" class="btn btn-primary">
+            Asignar
+        </button>
+    </div>
+    <div class="table-responsive table-bordered container">
+        <h2>CUPONES</h2>
+        <table class="table">
+            <thead class="bg-primary">
+            <tr>
+                <th scope="col">ID Cupón</th>
+                <th scope="col">Establecimiento</th>
+                <th scope="col">Información</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% arregloCupones.forEach((cupon) => { %>
+                <tr>
+                    <th scope="row"><%= cupon.idCupon %></th>
+                    <td><%= cupon.establecimiento.nombreEstablecimiento %></td>
+                    <td><%= cupon.informacionCupon %></td>
+                </tr>
+            <% }) %>
+            </tbody>
+        </table>
+    </div>
+</form>
+
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

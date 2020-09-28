@@ -1,0 +1,64 @@
+<%- include('../compartido/menu/menu-component') %>
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+
+<% const existeCupon = typeof cupon != 'undefined' %>
+<% const existeCuponGuardado = cuponGuardado %>
+<% if (existeCupon) { %>
+    <% idCupon = cupon.idCupon %>
+    <% pathImagenCupon = cupon.pathImagenCupon %>
+    <% pathCodigoQRCupon = cupon.pathCodigoQRCupon %>
+    <% informacionCupon = cupon.informacionCupon %>
+    <% cantidadUsos = cupon.cantidadUsos %>
+    <% estadoCupon = cupon.estadoCupon %>
+    <% nombreEstablecimiento = cupon.establecimiento.nombreEstablecimiento %>
+<% } %>
+
+<% if(error != undefined) { %>
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Mensaje: <%= error %>
+        </div>
+    </div>
+<% } %>
+
+<div class="container text-center">
+    <div class="mb-1">
+        <div class="btn-group">
+            <a href="/cupon/vista/editar/<%= idCupon %>">
+                <button type="submit" class="btn btn-primary mr-1" style="width: 12rem;">
+                    Editar Cupón
+                </button>
+            </a>
+            <form action="/cupon/eliminarDesdeVista/<%= cupon.idCupon %>" method="POST">
+                <button type="submit" class="btn btn-primary ml-1" style="width: 12rem;">
+                    Eliminar Cupón
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="mb-3">
+        <form action=" <%= existeCuponGuardado ? '/cupon/quitar/' + idCupon : '/cupon/guardar/' + idCupon %>"
+              method="POST">
+            <label for="cantidadID"></label>
+            <input id="cantidadID"
+                   hidden
+                   name="cantidadUsos"
+                   value="<%= cantidadUsos %>">
+            <button type="submit" class="btn btn-primary" style="width: 25rem;">
+                <%= existeCuponGuardado ? 'Quitar' : 'Guardar' %> Cupón
+            </button>
+        </form>
+        <form action="/fechaUso/utilizar/<%= cupon.idCupon %>" method="POST">
+            <button type="submit" class="btn btn-primary ml-1" style="width: 25rem;">
+                Utilizar Cupón
+            </button>
+        </form>
+    </div>
+    <img src="<%= pathImagenCupon %>" style="width: 25rem;" class="mb-3">
+    <p>Establecimiento: <%= nombreEstablecimiento %></p>
+    <p><%= informacionCupon %></p>
+    <p>Cantidad de usos posibles: <%= cantidadUsos %></p>
+    <img src="<%= pathCodigoQRCupon %>" style="width: 25rem;">
+</div>
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>
