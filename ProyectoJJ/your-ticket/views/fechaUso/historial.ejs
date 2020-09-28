@@ -1,0 +1,40 @@
+<%- include('../compartido/menu/menu-component') %>
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+
+<% if(error != undefined) { %>
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Mensaje: <%= error %>
+        </div>
+    </div>
+<% } %>
+
+<div class="container">
+    <div class="table-responsive table-bordered">
+        <table class="table">
+            <thead class="bg-primary">
+            <tr>
+                <th scope="col">ID Cupón</th>
+                <th scope="col">Fecha de Uso</th>
+                <th scope="col">Establecimiento</th>
+                <th scope="col">Información del Cupón</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% arregloFechas.forEach((fechaUso) => { %>
+                <tr>
+                    <th scope="row"><%= fechaUso.usuarioGuardaCupon.cupon.idCupon %></th>
+                    <td><%= fechaUso.fechaUso %></td>
+                    <td><%= fechaUso.usuarioGuardaCupon.cupon.establecimiento.nombreEstablecimiento %></td>
+                    <td><%= fechaUso.usuarioGuardaCupon.cupon.informacionCupon %></td>
+                </tr>
+            <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

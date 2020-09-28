@@ -1,0 +1,99 @@
+<%- include('../compartido/menu/menu-component') %>
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+
+<% let existeNombre = typeof nombreEstablecimiento !== 'undefined' %>
+<% let existeImagen = typeof pathImagenEstablecimiento !== 'undefined' %>
+<% let existeCategoria = typeof categoriaEstablecimiento !== 'undefined' %>
+<% let existeTelefono = typeof telefonoEstablecimiento != 'undefined' %>
+<% let existeDireccion = typeof direccionEstablecimiento != 'undefined' %>
+<% let existeEstablecimiento = typeof establecimiento != 'undefined' %>
+<% if (existeEstablecimiento) { %>
+    <% existeNombre = true %>
+    <% existeImagen = true %>
+    <% existeCategoria = true %>
+    <% existeTelefono = true %>
+    <% existeDireccion = true %>
+    <% nombreEstablecimiento = establecimiento.nombreEstablecimiento %>
+    <% pathImagenEstablecimiento = establecimiento.pathImagenEstablecimiento %>
+    <% categoriaEstablecimiento = establecimiento.categoriaEstablecimiento %>
+    <% telefonoEstablecimiento = establecimiento.telefonoEstablecimiento %>
+    <% direccionEstablecimiento = establecimiento.direccionEstablecimiento %>
+<% } %>
+
+<% if(error != undefined) { %>
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Mensaje: <%= error %>
+        </div>
+    </div>
+<% } %>
+
+<div class="container">
+    <h1> <%= existeEstablecimiento ? 'EDITAR' : 'CREAR' %> ESTABLECIMIENTO</h1>
+</div>
+
+<form action=" <%= existeEstablecimiento ? '/establecimiento/editarDesdeVista/' + establecimiento.idEstablecimiento : '/establecimiento/crearDesdeVista' %> "
+      method="POST">
+    <div class="container">
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="pathImagenID">URL Imagen: </label>
+            <input id="pathImagenID"
+                   type="text"
+                   maxlength=500
+                   class="form-control"
+                   placeholder="Path Imagen"
+                   name="pathImagenEstablecimiento"
+                   value="<%= existeImagen ? pathImagenEstablecimiento : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="nombreID">Nombre Establecimiento: </label>
+            <input id="nombreID"
+                   type="text"
+                   maxlength=60
+                   class="form-control"
+                   placeholder="Nombre del Establecimiento"
+                   name="nombreEstablecimiento"
+                   value="<%= existeNombre ? nombreEstablecimiento : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="categoriaID">Categoría: </label>
+            <input id="categoriaID"
+                   type="text"
+                   maxlength=60
+                   class="form-control"
+                   placeholder="Categoría"
+                   name="categoriaEstablecimiento"
+                   value="<%= existeCategoria ? categoriaEstablecimiento : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="telefonoID">Teléfono: </label>
+            <input id="telefonoID"
+                   class="form-control"
+                   type="text"
+                   maxlength=12
+                   placeholder="Teléfono"
+                   name="telefonoEstablecimiento"
+                   value="<%= existeTelefono ? telefonoEstablecimiento : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="direccionID">Direccción: </label>
+            <input id="direccionID"
+                   type="text"
+                   maxlength=100
+                   class="form-control"
+                   placeholder="Dirección"
+                   name="direccionEstablecimiento"
+                   value="<%= existeDireccion ? direccionEstablecimiento : '' %>">
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <% if(existeEstablecimiento) { %>
+                Editar
+            <% } else { %>
+                Crear
+            <% } %>
+        </button>
+        <button type="reset" class="btn btn-secondary">Limpiar Campos</button>
+    </div>
+</form>
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

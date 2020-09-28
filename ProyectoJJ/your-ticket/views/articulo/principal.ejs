@@ -1,0 +1,84 @@
+<%- include('../compartido/menu/menu-component') %>
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+
+<% if(error != undefined) { %>
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Mensaje: <%= error %>
+        </div>
+    </div>
+<% } %>
+
+<div class="container">
+    <h1>ARTÍCULOS</h1>
+    <div class="mb-3">
+        <a href="/articulo/vista/crear">
+            <button type="button" class="btn btn-primary">
+                Crear Artículo
+            </button>
+        </a>
+    </div>
+    <form action="/articulo/principal" method="GET">
+        <div class="input-group mb-3">
+            <label for="buscarID"></label>
+            <input id="buscarID" type="text" class="form-control" placeholder="Buscar Articulo" name="busqueda">
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="submit">Buscar</button>
+            </div>
+        </div>
+    </form>
+    <div class="table-responsive table-bordered">
+        <table class="table">
+            <thead class="bg-primary">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio ($)</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Cupón Asignado</th>
+                <th scope="col">Administrar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% arregloArticulos.forEach((articulo) => { %>
+                <tr>
+                    <th scope="row"><%= articulo.idArticulo %></th>
+                    <td><%= articulo.nombreArticulo %></td>
+                    <td>$ <%= articulo.precioArticulo %></td>
+                    <td><%= articulo.descripcionArticulo %></td>
+                    <td>
+                        <% if(articulo.articuloEnCupones.length > 0) { %>
+                            <% articulo.articuloEnCupones.forEach((articuloAsignado) => { %>
+                                <%= articuloAsignado.cupon.informacionCupon %>
+                            <% }) %>
+                        <% } else { %>
+                            Sin Asignar
+                        <% } %>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="/articulo/vista/editar/<%= articulo.idArticulo %>">
+                                <button class="btn btn-primary mr-1">
+                                    Editar
+                                </button>
+                            </a>
+                            <form action="/articulo/eliminarDesdeVista/<%= articulo.idArticulo %>" method="POST">
+                                <button type="submit" class="btn btn-primary mr-1">
+                                    Eliminar
+                                </button>
+                            </form>
+                            <form action="/articuloEnCupon/asignar/<%= articulo.idArticulo %>" method="POST">
+                                <button type="submit" class="btn btn-primary">
+                                    Asignar
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

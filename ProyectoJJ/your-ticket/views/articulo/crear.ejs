@@ -1,0 +1,73 @@
+<%- include('../compartido/menu/menu-component') %>
+<%- include('../compartido/estilos-generales/estilos-generales-component') %>
+
+<% let existeNombre = typeof nombreArticulo !== 'undefined' %>
+<% let existePrecio = typeof precioArticulo !== 'undefined' %>
+<% let existeDescripcion = typeof descripcionArticulo !== 'undefined' %> %>
+<% let existeArticulo = typeof articulo != 'undefined' %>
+<% if (existeArticulo) { %>
+    <% existeNombre = true %>
+    <% existePrecio = true %>
+    <% existeDescripcion = true %>
+    <% nombreArticulo = articulo.nombreArticulo %>
+    <% precioArticulo = articulo.precioArticulo %>
+    <% descripcionArticulo = articulo.descripcionArticulo %>
+<% } %>
+
+<% if(error != undefined) { %>
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Mensaje: <%= error %>
+        </div>
+    </div>
+<% } %>
+
+<div class="container">
+    <h1> <%= existeArticulo ? 'EDITAR' : 'CREAR' %> ARTÍCULO</h1>
+</div>
+
+<form action=" <%= existeArticulo ? '/articulo/editarDesdeVista/' + articulo.idArticulo : '/articulo/crearDesdeVista' %> "
+      method="POST">
+    <div class="container">
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="nombreID">Nombre: </label>
+            <input id="nombreID"
+                   type="text"
+                   maxlength=20
+                   class="form-control"
+                   placeholder="Nombre del Artículo"
+                   name="nombreArticulo"
+                   value="<%= existeNombre ? nombreArticulo : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="precioID">Precio ($): </label>
+            <input id="precioID"
+                   type=text
+                   minlength=3
+                   class="form-control"
+                   placeholder="Precio en dólares (ej: 12.50)"
+                   name="precioArticulo"
+                   value="<%= existePrecio ? precioArticulo : '' %>">
+        </div>
+        <div class="input-group mb-1">
+            <label class="input-group-text" for="descripcionID">Descripción: </label>
+            <input id="descripcionID"
+                   type="text"
+                   maxlength=100
+                   class="form-control"
+                   placeholder="Descripción"
+                   name="descripcionArticulo"
+                   value="<%= existeDescripcion ? descripcionArticulo : '' %>">
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <% if(existeArticulo) { %>
+                Editar
+            <% } else { %>
+                Crear
+            <% } %>
+        </button>
+        <button type="reset" class="btn btn-secondary">Limpiar Campos</button>
+    </div>
+</form>
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>
