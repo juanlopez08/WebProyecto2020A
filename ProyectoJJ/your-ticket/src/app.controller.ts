@@ -33,7 +33,7 @@ export class AppController {
     }
 
     @Post('login')
-    async logginPost(
+    async loginPost(
         @Body() parametrosConsulta,
         @Res() response,
         @Session() session,
@@ -48,13 +48,13 @@ export class AppController {
             respuesta = await this._usuarioService.logeo(usuarioValido.correoUsuario, usuarioValido.contrasenaUsuario)
         } catch (e) {
             console.log(e);
-            const mensajeError = 'Usuario o contraseña incorrectos'
+            const mensajeError = 'Usuario o contraseña incorrectos';
             return response.redirect('/login?error=' + mensajeError);
         }
-        if (errores.length < 1 && respuesta.length > 0) {
+        if (errores.length < 1 && respuesta) {
             session.correoUsuario = usuarioValido.correoUsuario;
-            session.idUsuario = respuesta[0].idUsuario;
-            return response.redirect('/inicio');
+            session.idUsuario = respuesta.idUsuario;
+            return response.redirect('/inicio?error=Bienvenido ' + session.correoUsuario);
         } else {
             console.log('ERROR', errores);
             const mensajeError = 'Usuario o contraseña incorrectos';

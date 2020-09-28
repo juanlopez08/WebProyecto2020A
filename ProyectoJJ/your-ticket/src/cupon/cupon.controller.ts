@@ -267,13 +267,29 @@ export class CuponController {
             return res.redirect('/cupon/principal?error=' + mensajeError);
         }
 
-        const cuponGuardado = await this._usuarioGuardaCuponService.buscarUnoGuardado(idCupon, Number(session.idUsuario))
+        let cuponGuardado
+        if (session.idUsuario) {
+            try {
+                cuponGuardado = await this._usuarioGuardaCuponService.buscarUnoGuardado(idCupon, Number(session.idUsuario))
+            } catch (e) {
+                console.log(e)
+                const mensajeError = 'Error Mostrando Informacións del Cupón'
+                return res.redirect('/cupon/principal?error=' + mensajeError)
+            }
+        } else {
+            return res.render(
+                'cupon/informacion',
+                {
+                    error: parametrosConsulta.error,
+                    cupon: resultadoEncontrado,
+                    cuponGuardado: false,
+                }
+            )
+        }
 
-        let existeCuponGuardado
+        let existeCuponGuardado = false
         if (cuponGuardado) {
             existeCuponGuardado = true;
-        } else {
-            existeCuponGuardado = false
         }
 
         if (resultadoEncontrado) {
@@ -290,6 +306,5 @@ export class CuponController {
             const mensajeError = 'Error Mostrando Información del Cupón'
             return res.redirect('/cupon/principal?error=' + mensajeError)
         }
-
     }
 }

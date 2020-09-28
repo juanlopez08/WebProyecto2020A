@@ -21,7 +21,7 @@
     </div>
 <% } %>
 
-<div class="container">
+<div class="container text-center">
     <div class="mb-1">
         <div class="btn-group">
             <a href="/cupon/vista/editar/<%= idCupon %>">
@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="mb-3">
-        <form action=" <%= existeCuponGuardado ? '/cupon/quitar/' + idCupon : '/cupon/guardar/' + idCupon  %>"
+        <form action=" <%= existeCuponGuardado ? '/cupon/quitar/' + idCupon : '/cupon/guardar/' + idCupon %>"
               method="POST">
             <label for="cantidadID"></label>
             <input id="cantidadID"
@@ -55,12 +55,10 @@
         </form>
     </div>
     <img src="<%= pathImagenCupon %>" style="width: 25rem;" class="mb-3">
-    <p style="width: 25rem;">Establecimiento: <%= nombreEstablecimiento %></p>
-    <p style="width: 25rem;"><%= informacionCupon %></p>
-    <p style="width: 25rem;">Cantidad de usos posibles: <%= cantidadUsos %></p>
+    <p>Establecimiento: <%= nombreEstablecimiento %></p>
+    <p><%= informacionCupon %></p>
+    <p>Cantidad de usos posibles: <%= cantidadUsos %></p>
     <img src="<%= pathCodigoQRCupon %>" style="width: 25rem;">
-
-
 </div>
 
 <%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

@@ -165,6 +165,7 @@ export class EstablecimientoController {
                 categoriaEstablecimiento: parametrosConsulta.categoriaEstablecimiento,
                 telefonoEstablecimiento: parametrosConsulta.telefonoEstablecimiento,
                 direccionEstablecimiento: parametrosConsulta.direccionEstablecimiento,
+                establecimiento: undefined,
                 logeado: session.correoUsuario,
             }
         )

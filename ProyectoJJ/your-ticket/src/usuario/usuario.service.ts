@@ -54,7 +54,7 @@ export class UsuarioService {
             ],
             relations: ['usuarioTieneRoles', 'usuarioGuardaCupones']
         }
-        return this.repositorio.find(consulta);
+        return this.repositorio.findOne(consulta);
     }
 
 
