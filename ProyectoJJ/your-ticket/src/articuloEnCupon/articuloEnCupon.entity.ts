@@ -18,16 +18,16 @@ export class ArticuloEnCuponEntity {
         type: 'int',
         nullable: true,
     })
-    porcentaje: number;
+    porcentaje?: number;
 
     @Column({
         name: 'valor',
         type: 'decimal',
         precision: 10,
-        scale: 4,
+        scale: 2,
         nullable: true,
     })
-    valor: number;
+    valor?: number;
 
     // RELACIONES
 

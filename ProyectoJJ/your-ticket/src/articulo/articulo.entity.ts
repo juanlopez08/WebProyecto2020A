@@ -3,7 +3,7 @@ import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {ArticuloEnCuponEntity} from "../articuloEnCupon/articuloEnCupon.entity";
 
 @Entity('articulo')
-export class ArticuloEntity{
+export class ArticuloEntity {
 
     @PrimaryGeneratedColumn({
         unsigned: true,
@@ -23,7 +23,7 @@ export class ArticuloEntity{
         name: 'precio_articulo',
         type: 'decimal',
         precision: 10,
-        scale: 4,
+        scale: 2,
     })
     precioArticulo: number;
 

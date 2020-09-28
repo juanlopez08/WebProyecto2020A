@@ -18,8 +18,11 @@ import {TypeOrmModule} from "@nestjs/typeorm";
             )
     ],
     providers: [
-        ArticuloService
+        ArticuloService,
     ],
+    exports: [
+        ArticuloService,
+    ]
 })
 export class ArticuloModule {
 
