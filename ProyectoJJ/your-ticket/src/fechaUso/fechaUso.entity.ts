@@ -10,15 +10,15 @@ export class FechaUsoEntity{
         comment: 'Identificador',
         name: 'id_fecha_uso',
     })
-    idUsuario: number;
+    idFechaUso: number;
 
     @Column({
-        name: 'fecha_uso',
+        name: 'fecha_de_uso',
         type: 'varchar',
         length: 10,
         nullable: true
     })
-    fechaUso?: string
+    fechaUso?: string;
 
     // RELACIONES
 

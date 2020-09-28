@@ -48,12 +48,18 @@
                 <%= existeCuponGuardado ? 'Quitar' : 'Guardar' %> Cupón
             </button>
         </form>
+        <form action="/fechaUso/utilizar/<%= cupon.idCupon %>" method="POST">
+            <button type="submit" class="btn btn-primary ml-1" style="width: 25rem;">
+                Utilizar Cupón
+            </button>
+        </form>
     </div>
     <img src="<%= pathImagenCupon %>" style="width: 25rem;" class="mb-3">
     <p style="width: 25rem;">Establecimiento: <%= nombreEstablecimiento %></p>
     <p style="width: 25rem;"><%= informacionCupon %></p>
     <p style="width: 25rem;">Cantidad de usos posibles: <%= cantidadUsos %></p>
     <img src="<%= pathCodigoQRCupon %>" style="width: 25rem;">
+
 
 </div>
 

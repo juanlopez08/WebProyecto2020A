@@ -32,9 +32,9 @@ export class UsuarioGuardaCuponService {
                 {
                     cupon: idCupon,
                     usuario: idUsuario
-
                 }
-            ]
+            ],
+            relations: ['fechaUsos', 'cupon', 'usuario', 'cupon.establecimiento'],
         }
         return this.repositorio.findOne(consulta);
     }

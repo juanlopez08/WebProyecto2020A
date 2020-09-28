@@ -6,7 +6,7 @@ import {EstablecimientoService} from "../establecimiento/establecimiento.service
 import {CuponUpdateDto} from "./dto/cupon.update-dto";
 import {CuponEntity} from "./cupon.entity";
 import {UsuarioGuardaCuponService} from "../usuarioGuardaCupon/usuarioGuardaCupon.service";
-import {UsuarioGuardaCuponCreateDto} from "../usuarioGuardaCupon/dto/usuarioGuardaCupon.update-dto";
+import {UsuarioGuardaCuponCreateDto} from "../usuarioGuardaCupon/dto/usuarioGuardaCupon.create-dto";
 import {UsuarioGuardaCuponEntity} from "../usuarioGuardaCupon/usuarioGuardaCupon.entity";
 import {type} from "os";
 
